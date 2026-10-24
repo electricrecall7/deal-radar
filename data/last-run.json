@@ -1,0 +1,1484 @@
+{
+  "ranAt": "2026-10-24T11:43:43.932Z",
+  "today": "2026-10-24",
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "durationMinutes": 22.7,
+  "options": {
+    "skipVerify": false,
+    "skipDiscover": false,
+    "skipBenefits": false,
+    "angles": [
+      "sa-local-news",
+      "national-weekly",
+      "recurring-weekly",
+      "upcoming-dates",
+      "card-offers",
+      "sa-chains-sports",
+      "loyalty-perks"
+    ],
+    "limit": null,
+    "budgetMinutes": 42
+  },
+  "counts": {
+    "dealsBefore": 351,
+    "dealsAfter": 360,
+    "invalidEntriesDropped": 0,
+    "ended": 0,
+    "verifyDue": 168,
+    "verifySkippedFresh": 183,
+    "verified": 168,
+    "reconfirmed": 33,
+    "updated": 66,
+    "removed": 17,
+    "duplicatesRemoved": 0,
+    "candidates": 34,
+    "duplicates": 0,
+    "rejected": 8,
+    "added": 26,
+    "benefitsChanged": 3,
+    "cardsChanged": 5,
+    "requestsSucceeded": 34,
+    "requestsFailed": 0,
+    "requestsDeferred": 0
+  },
+  "added": [
+    {
+      "id": "popeyes-free-6-pc-wings-mondays-w-10-online-app-order-2026-10-24",
+      "restaurant": "Popeyes",
+      "title": "Free 6-pc wings Mondays w/ $10+ online/app order",
+      "start": "2026-10-24",
+      "end": "2027-01-04",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "subway-happy-hour-bogo-50-off-footlong-bogo50-2026-10-24",
+      "restaurant": "Subway",
+      "title": "Happy Hour: BOGO 50% off footlong (BOGO50)",
+      "start": "2026-10-24",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "mcdonalds-0-99-any-size-premium-roast-or-iced-coffee-app-2026-10-24",
+      "restaurant": "McDonald's",
+      "title": "$0.99 any-size Premium Roast or iced coffee (app)",
+      "start": "2026-10-24",
+      "end": "2026-11-01",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "mcdonalds-40-off-double-cheeseburger-or-6-pc-mcnuggets-app-2026-10-24",
+      "restaurant": "McDonald's",
+      "title": "40% off Double Cheeseburger or 6-pc McNuggets (app)",
+      "start": "2026-10-24",
+      "end": "2026-11-01",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "dunkin-6-meal-deal-bacon-egg-and-cheese-hash-browns-coffee-2026-10-24",
+      "restaurant": "Dunkin'",
+      "title": "$6 Meal Deal: bacon egg & cheese, hash browns, coffee",
+      "start": "2026-10-24",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "pizza-hut-big-hut-deal-large-3-topping-pizza-for-10-2026-10-24",
+      "restaurant": "Pizza Hut",
+      "title": "Big Hut Deal: large 3-topping pizza for $10",
+      "start": "2026-10-24",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://www.fastfoodpost.com/pizza-hut-launches-new-10-big-hut-deal-and-new-triple-treat-box-gameday-edition/"
+    },
+    {
+      "id": "baskin-robbins-5-off-polar-pizza-2-off-large-frozen-drink-2026-10-24",
+      "restaurant": "Baskin-Robbins",
+      "title": "$5 off Polar Pizza, $2 off large frozen drink (Rewards)",
+      "start": "2026-10-24",
+      "end": "2026-10-31",
+      "status": "confirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "dairy-queen-free-delivery-mondays-on-15-orders-dq-rewards-2026-10-24",
+      "restaurant": "Dairy Queen",
+      "title": "Free delivery Mondays on $15+ orders (DQ Rewards)",
+      "start": "2026-10-24",
+      "end": "2026-11-01",
+      "status": "confirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://www.dairyqueen.com/en-us/rewards/"
+    },
+    {
+      "id": "cinnabon-sweet-savings-tuesday-cinnapack-deals-in-store-2026-10-24",
+      "restaurant": "Cinnabon",
+      "title": "Sweet Savings Tuesday: CinnaPack deals in store",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://www.cinnabon.com/offers"
+    },
+    {
+      "id": "7-eleven-stripes-hot-sandwich-20-oz-coke-or-pepsi-for-6-2026-10-24",
+      "restaurant": "7-Eleven / Stripes",
+      "title": "Hot sandwich + 20-oz Coke or Pepsi for $6 (7Rewards)",
+      "start": "2026-10-24",
+      "status": "unconfirmed",
+      "angle": "national-weekly",
+      "sourceUrl": "https://sporked.com/article/every-fast-food-deal-this-week-8/"
+    },
+    {
+      "id": "applebees-holiday-gift-cards-10-bonus-card-per-50-purchased-2026-10-24",
+      "restaurant": "Applebee's",
+      "title": "Holiday gift cards: $10 bonus card per $50 purchased",
+      "start": "2026-10-24",
+      "end": "2027-01-03",
+      "status": "unconfirmed",
+      "angle": "upcoming-dates",
+      "sourceUrl": "https://www.applebees.com/en/gift-cards/holiday"
+    },
+    {
+      "id": "outback-steakhouse-veterans-day-free-aussie-3-course-meal-2026-11-10",
+      "restaurant": "Outback Steakhouse",
+      "title": "Veterans Day: free Aussie 3-Course Meal (Nov 10-11)",
+      "start": "2026-11-10",
+      "end": "2026-11-11",
+      "status": "unconfirmed",
+      "angle": "upcoming-dates",
+      "sourceUrl": "https://themilitarywallet.com/veterans-day-free-meals-and-discounts/"
+    },
+    {
+      "id": "einstein-bros-bagels-veterans-day-free-hot-or-iced-coffee-w-2026-11-11",
+      "restaurant": "Einstein Bros. Bagels",
+      "title": "Veterans Day: free hot or iced coffee w/ purchase",
+      "start": "2026-11-11",
+      "end": "2026-11-11",
+      "status": "unconfirmed",
+      "angle": "upcoming-dates",
+      "sourceUrl": "https://www.dinova.com/dining-guide/veterans-day-guide/"
+    },
+    {
+      "id": "hopdoddy-burger-bar-veterans-day-free-classic-burger-dine-in-2026-11-11",
+      "restaurant": "Hopdoddy Burger Bar",
+      "title": "Veterans Day: free classic burger (dine-in)",
+      "start": "2026-11-11",
+      "end": "2026-11-11",
+      "status": "unconfirmed",
+      "angle": "upcoming-dates",
+      "sourceUrl": "https://www.dinova.com/dining-guide/veterans-day-guide/"
+    },
+    {
+      "id": "buffalo-wings-and-rings-veterans-day-free-boneless-wings-2026-11-11",
+      "restaurant": "Buffalo Wings & Rings",
+      "title": "Veterans Day: free boneless wings & fries (dine-in)",
+      "start": "2026-11-11",
+      "end": "2026-11-11",
+      "status": "unconfirmed",
+      "angle": "upcoming-dates",
+      "sourceUrl": "https://themilitarywallet.com/veterans-day-free-meals-and-discounts/"
+    },
+    {
+      "id": "pei-wei-citi-offer-5-back-at-pei-wei-2026-10-24",
+      "restaurant": "Pei Wei",
+      "title": "Citi Offer: 5% back at Pei Wei",
+      "start": "2026-10-24",
+      "end": "2026-11-15",
+      "status": "unconfirmed",
+      "angle": "card-offers",
+      "sourceUrl": "https://upgradedpoints.com/news/best-current-citi-merchant-offers/"
+    },
+    {
+      "id": "churchs-texas-chicken-chick-or-treat-weekly-mystery-reward-2026-10-24",
+      "restaurant": "Church's Texas Chicken",
+      "title": "Chick or Treat: weekly mystery reward in app",
+      "start": "2026-10-24",
+      "end": "2026-10-31",
+      "status": "unconfirmed",
+      "angle": "sa-chains-sports",
+      "sourceUrl": "https://www.qsrweb.com/news/churchs-texas-chicken-brings-back-chick-or-treat-halloween-rewards/"
+    },
+    {
+      "id": "p-f-changs-free-birthday-appetizer-or-dessert-rewards-2026-10-24",
+      "restaurant": "P.F. Chang's",
+      "title": "Free birthday appetizer or dessert (Rewards)",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.pfchangs.com/rewards"
+    },
+    {
+      "id": "p-f-changs-free-edamame-on-dine-in-visits-for-rewards-2026-10-24",
+      "restaurant": "P.F. Chang's",
+      "title": "Free edamame on dine-in visits for Rewards members",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.pfchangs.com/rewards"
+    },
+    {
+      "id": "texas-roadhouse-welcome-gift-for-joining-the-vip-club-2026-10-24",
+      "restaurant": "Texas Roadhouse",
+      "title": "Welcome gift for joining the VIP Club",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.texasroadhouse.com/vip-club"
+    },
+    {
+      "id": "texas-roadhouse-free-birthday-appetizer-or-ribs-shrimp-2026-10-24",
+      "restaurant": "Texas Roadhouse",
+      "title": "Free birthday appetizer or ribs/shrimp sidekick (VIP Club)",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.yahoo.com/lifestyle/articles/texas-roadhouses-birthday-deal-special-130500618.html"
+    },
+    {
+      "id": "pei-wei-free-small-birthday-appetizer-free-entree-on-signup-2026-10-24",
+      "restaurant": "Pei Wei",
+      "title": "Free small birthday appetizer + free entrée on signup",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.peiwei.com/info/rewards-faqs/"
+    },
+    {
+      "id": "wingstop-free-birthday-gift-for-club-wingstop-members-2026-10-24",
+      "restaurant": "Wingstop",
+      "title": "Free birthday gift for Club Wingstop members",
+      "start": "2026-10-24",
+      "status": "unconfirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.thepennyhoarder.com/save-money/birthday-freebies/"
+    },
+    {
+      "id": "red-lobster-birthday-reward-20-off-first-order-red-lobster-2026-10-24",
+      "restaurant": "Red Lobster",
+      "title": "Birthday reward + 20% off first order (Red Lobster Nation)",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.redlobster.com/rewards"
+    },
+    {
+      "id": "cold-stone-creamery-birthday-reward-for-my-cold-stone-club-2026-10-24",
+      "restaurant": "Cold Stone Creamery",
+      "title": "Birthday reward for My Cold Stone Club members",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.coldstonecreamery.com/mycsc/index.html"
+    },
+    {
+      "id": "scooters-coffee-birthday-bonus-smiles-200-400-in-scooters-2026-10-24",
+      "restaurant": "Scooter's Coffee",
+      "title": "Birthday bonus Smiles (200-400) in Scooter's app",
+      "start": "2026-10-24",
+      "status": "confirmed",
+      "angle": "loyalty-perks",
+      "sourceUrl": "https://www.scooterscoffee.com/mobileapp/faqs"
+    }
+  ],
+  "updated": [
+    {
+      "id": "grubhub-amex-offer-6-back-on-20-grubhub-order-2x-10-21",
+      "restaurant": "Grubhub",
+      "title": "Amex Offer: $6 back on $20+ Grubhub order (2x)",
+      "reason": "rechecked",
+      "detail": "Not re-checked: the search tool hit its usage limit before this search ran. Kept as is. Card-linked offers stay unconfirmed and targeted anyway.",
+      "fields": [
+        "notes"
+      ]
+    },
+    {
+      "id": "arbys-7-99-meat-3-box-value-meal-10-24",
+      "restaurant": "Arby's",
+      "title": "$7.99 Meat & 3 Box value meal",
+      "reason": "corrected",
+      "detail": "Arby's own menu page still lists the $7.99 Meat & 3, but the entrées and sides have changed: Crispy Chicken, Buffalo Ranch or Ham & Swiss Melt with small fry, 2-pc mozzarella sticks, a brownie and a small drink. The peach cobbler roll and potato cake options are gone.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "auntie-annes-amex-offer-10-back-at-auntie-annes-max-4-10-24",
+      "restaurant": "Auntie Anne's",
+      "title": "Amex Offer: 10% back at Auntie Anne's (max $4)",
+      "reason": "corrected",
+      "detail": "Upgraded Points' Amex Offers list, updated about 2 days ago, still shows Auntie Anne's 10% back up to $4, ending October 31, 2026. I added the required targeted tag and notes. Card offers are targeted, so this stays unconfirmed.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "bahia-bowls-citi-offer-5-back-at-bahia-bowls-10-24",
+      "restaurant": "Bahia Bowls",
+      "title": "Citi Offer: 5% back at Bahia Bowls",
+      "reason": "corrected",
+      "detail": "I couldn't re-check this one because the search limit ran out. Nothing contradicts it, so it stays unconfirmed. I only added the required targeted tag and notes wording.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "bud-jones-restaurant-free-kids-spaghetti-wednesdays-11-am-1--10-24",
+      "restaurant": "Bud Jones Restaurant",
+      "title": "Free kids spaghetti Wednesdays 11 AM-1 PM",
+      "reason": "corrected",
+      "detail": "Fun4AlamoKids' Kids Eat Free page still lists the Wednesday 11 AM-1 PM free kids spaghetti (page updated about a month ago). MySA (about Nov 2025) gives 11 AM-3 PM instead, so I added that conflict to the notes.",
+      "fields": [
+        "notes",
+        "sourceName"
+      ]
+    },
+    {
+      "id": "buffalo-wild-wings-bogo-boneless-wings-thursdays-10-24",
+      "restaurant": "Buffalo Wild Wings",
+      "title": "BOGO free boneless wings Thursdays",
+      "reason": "corrected",
+      "detail": "BWW's own BOGO Days page lists Boneless Thursday: buy one order of boneless wings and get one of equal or lesser value free. It's valid for takeout/delivery through the BWW web/app and with dine-in orders (third-party delivery excluded), limit 1, with size exclusions. EatDrinkDeals (Oct 22, 2026) agrees.",
+      "fields": [
+        "channel",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "buffalo-wild-wings-bogo-wings-tue-traditional-thu-boneless-10-24",
+      "restaurant": "Buffalo Wild Wings",
+      "title": "BOGO traditional wings Tuesdays (check terms)",
+      "reason": "corrected",
+      "detail": "The Thursday half repeats the separate boneless Thursday deal, so I narrowed this one to Tuesday only. BWW's own terms and Chowhound (Mar 2026) say Tuesday is buy one, get one 50% off traditional wings, including dine-in. EatDrinkDeals (Oct 22, 2026) says it's free and takeout/delivery only, so the sources conflict.",
+      "fields": [
+        "days",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "tags",
+        "title"
+      ]
+    },
+    {
+      "id": "burger-king-birthday-freebie-double-crowns-royal-perks-10-24",
+      "restaurant": "Burger King",
+      "title": "Birthday freebie + double Crowns (Royal Perks)",
+      "reason": "corrected",
+      "detail": "Burger King's Help Center and its Royal Perks page both confirm the birthday perk. Members get 2x Crowns all birthday month plus a free item on the birthday itself (Whopper Jr., Original Chicken Sandwich, Cheeseburger, 8pc Chicken Fries, Soft Serve or a seasonal item). The 7-day registration rule and the 12-month purchase rule are confirmed too. Source changed to the brand's page and status set to confirmed.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "burger-king-citi-offer-5-back-at-burger-king-10-24",
+      "restaurant": "Burger King",
+      "title": "Citi Offer: $5 back at Burger King",
+      "reason": "corrected",
+      "detail": "I hit the tool limit before I could check this offer again, so there's no new evidence either way. Updated only to follow the card-offer rules: added the targeted tag, set channel to card and put the standard targeted note first.",
+      "fields": [
+        "channel",
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "burger-king-free-fries-w-3-purchase-royal-perks-weekly-10-24",
+      "restaurant": "Burger King",
+      "title": "Free fries w/ $3+ purchase (Royal Perks, weekly)",
+      "reason": "corrected",
+      "detail": "I found no brand source. A coupons.com page quotes offer terms that differ: free fries (any size) with $5+, once a week, only for select members who get the offer in their account. I kept the $3 figure from Brand Eating and added a note about the conflict and the targeting.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "dairy-queen-birthday-treat-or-discount-dq-rewards-10-24",
+      "restaurant": "Dairy Queen",
+      "title": "Birthday offer in DQ app (DQ Rewards)",
+      "reason": "corrected",
+      "detail": "DQ's own app FAQ confirms the birthday offer: it requires an order of at least $1 while signed in during the 45 days before your birthday, it appears in the Deals tab on your birthday, and it lasts 7 days. The FAQ doesn't name the item, so I replaced the deal-site source with DQ's page and added these terms.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "doordash-capital-one-offer-up-to-8-back-at-doordash-10-24",
+      "restaurant": "DoorDash",
+      "title": "Capital One Offer: up to $8 back at DoorDash",
+      "reason": "corrected",
+      "detail": "I couldn't re-check the amount because I hit the search limit. This is a targeted Capital One Offer, so I added the required 'targeted' tag and the standard note; nothing else changed.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "dunkin-3x-points-around-your-birthday-dunkin-rewards-10-24",
+      "restaurant": "Dunkin'",
+      "title": "3x points for one day around your birthday",
+      "reason": "corrected",
+      "detail": "Dunkin's Rewards page confirms the annual birthday bonus is 3x points on purchases all day. You activate and use it on one day you pick (the day before, the day of or the day after), not across all three days as the app said.",
+      "fields": [
+        "details",
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "dunkin-boosted-status-100-bonus-pts-on-orders-after-1-pm-10-24",
+      "restaurant": "Dunkin'",
+      "title": "Boosted Status: 100 bonus pts on orders after 1 PM",
+      "reason": "corrected",
+      "detail": "Dunkin's September 2026 newsroom release confirms it: valid 10/1–10/31/26 for Boosted Status members only, limited to 100 bonus points per member per day, and it must be activated in the app. I added those terms and switched the source to the newsroom.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "flemings-prime-steakhouse-wine-bar-amex-offer-4-mr-pts-at-fl-10-24",
+      "restaurant": "Fleming's Prime Steakhouse & Wine Bar",
+      "title": "Amex Offer: +4 MR pts/$ at Fleming's (to 5,000)",
+      "reason": "corrected",
+      "detail": "Upgraded Points' current Amex Offers table lists Fleming's +4 MR points per $1, up to 5,000 points, expiring October 25, 2026. Card-linked offers are targeted, so I added the targeted tag and the standard note. I also added the 2025 version's terms (from CardPointers) on what qualifies.",
+      "fields": [
+        "channel",
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "freebirds-world-burrito-kids-eat-free-weekdays-3pm-close-onl-10-24",
+      "restaurant": "Freebirds World Burrito",
+      "title": "Kids eat free weekdays 3 PM-close (code KIDSTIME online)",
+      "reason": "corrected",
+      "detail": "DFWChild (2026) gives the missing terms: kids 12 and under, one free kids meal per adult entrée, Mon-Fri 3 PM to close, dine-in or online with code KIDSTIME, and up to two free kids meals per online order. A Dallas family newsletter (Aug 2026) agrees. No San Antonio source lists the weekday version.",
+      "fields": [
+        "channel",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "title"
+      ]
+    },
+    {
+      "id": "freebirds-world-burrito-kids-eat-free-weekends-w-code-kidsea-10-24",
+      "restaurant": "Freebirds World Burrito",
+      "title": "Kids eat free Sat & Sun (code KIDSEATFREE online)",
+      "reason": "corrected",
+      "detail": "Hip2Save (fall 2026) and DFWChild (2026) both report kids eat free Saturday and Sunday with code KIDSEATFREE online. Alamo City Moms (Aug 2026) lists the Sat/Sun Freebirds kids deal at all San Antonio locations. DFWChild adds that it's for kids 12 and under, one per adult entrée, dine-in or online, with up to two per online order.",
+      "fields": [
+        "channel",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "golden-chick-birthday-treat-golden-chick-rewards-10-24",
+      "restaurant": "Golden Chick",
+      "title": "Birthday treat (Golden Chick Rewards)",
+      "reason": "corrected",
+      "detail": "Golden Chick's own Golden Rewards Terms/FAQ PDF says members get a special treat on their birthday. The Birthday Offer is awarded 7 days before the birthday and expires 23 days after. Franchising.com's coverage of the program launch also mentions birthday bonuses.",
+      "fields": [
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "golden-chick-free-chicken-sandwich-w-first-10-order-10-24",
+      "restaurant": "Golden Chick",
+      "title": "Free chicken sandwich w/ first $10+ order",
+      "reason": "corrected",
+      "detail": "Golden Chick's own Golden Rewards Terms/FAQ PDF confirms a free Big & Golden or Big & Wicked chicken sandwich with the first $10 purchase after registering, and that the Welcome Offer expires 60 days after it's earned. Franchising.com's launch coverage says the same.",
+      "fields": [
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "honeybaked-ham-10-99-sandwich-or-3-sliders-chips-drink-10-24",
+      "restaurant": "HoneyBaked Ham",
+      "title": "$10.99 sandwich, 3 sliders or pot pie + chips + drink",
+      "reason": "corrected",
+      "detail": "In search results, HoneyBaked's own lunch-offer page says the $10.99 offer also covers a turkey pot pie, but it shows no dates or code. The page only showed 'Loading...' when fetched, and I couldn't reopen the EatDrinkDeals source for code 729678 and the Oct 31 end date. EatDrinkDeals' earlier coupon ran through Aug 1, 2026, which suggests the coupons rotate.",
+      "fields": [
+        "details",
+        "notes",
+        "title"
+      ]
+    },
+    {
+      "id": "ihop-5-free-pancoins-in-birthday-month-ihop-rewards-10-24",
+      "restaurant": "IHOP",
+      "title": "5 free PanCoins in birthday month (IHOP rewards)",
+      "reason": "corrected",
+      "detail": "IHOP's rewards FAQ (© 2026) says members automatically receive 5 PanCoins on the first day of their birthday month and that unused PanCoins expire one year after they're earned. IHOP's birthday page calls the reward a free full stack of Original Buttermilk pancakes.",
+      "fields": [
+        "details",
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "tags"
+      ]
+    },
+    {
+      "id": "jimmy-johns-free-birthday-sandwich-jimmy-johns-rewards-10-24",
+      "restaurant": "Jimmy John's",
+      "title": "Free birthday sandwich (Jimmy John's Rewards)",
+      "reason": "corrected",
+      "detail": "Jimmy John's own terms page (seen in search results) settles the details: one free regular Original sandwich, added to the account on your birthday, good for 30 days. To qualify you need a purchase in the prior 6 months and your birthdate on file at least 14 days ahead. The 2026 rewards page also lists a 'Birthday Surprise.'",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "krispy-kreme-birthday-doughnut-gift-for-krispy-kreme-rewards-10-24",
+      "restaurant": "Krispy Kreme",
+      "title": "Birthday doughnut gift for Krispy Kreme Rewards members",
+      "reason": "corrected",
+      "detail": "I fetched krispykreme.com/rewards today (copyright 2026). It lists 'A sweet birthday gift from us' as a Rewards perk, so the perk is confirmed from the brand's own page. The doughnut count and how long it's valid are still unstated, and the existing notes already say so.",
+      "fields": [
+        "status"
+      ]
+    },
+    {
+      "id": "little-caesars-amex-offer-15-back-at-little-caesars-max-5-10-24",
+      "restaurant": "Little Caesars",
+      "title": "Amex Offer: 15% back at Little Caesars (max $5)",
+      "reason": "corrected",
+      "detail": "I ran out of searches before I could check the offer itself, and it's still inside its Oct 31 end date. I'm only adding the required targeted tag and standard note for card-linked offers; nothing else changes.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "mcdonalds-2-halloween-treats-pack-12-free-food-coupons-10-24",
+      "restaurant": "McDonald's",
+      "title": "$2 Halloween Treats Pack (12 free-food coupons)",
+      "reason": "corrected",
+      "detail": "Two national deal sites describe the $2 pack the same way in 2026: Hip2Save (Sep 29, 2026) and EatDrinkDeals (Oct 19, 2026). Both say 12 coupons, valid through Dec 31, while supplies last, and some stores limit them to kids 12 and under. I changed the source to Hip2Save's dedicated article and marked it confirmed.",
+      "fields": [
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "outback-steakhouse-tuesday-tails-weekly-special-terms-not-pu-10-24",
+      "restaurant": "Outback Steakhouse",
+      "title": "Tuesday Tails: sirloin + lobster tail from $24.99",
+      "reason": "corrected",
+      "detail": "Outback's own Weekday Value page (2026 creative) now publishes the terms: every Tuesday, a 6oz Center-Cut Sirloin, a lobster tail and two sides starting at $24.99. It's dine-in only, and price, product and participation vary by location.",
+      "fields": [
+        "details",
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "tags",
+        "title"
+      ]
+    },
+    {
+      "id": "outback-steakhouse-walkabout-wednesdays-weekly-special-10-24",
+      "restaurant": "Outback Steakhouse",
+      "title": "Walkabout Wednesday: sirloin or chicken combo from $13.99",
+      "reason": "corrected",
+      "detail": "Outback's Weekday Value page now spells out Walkabout Wednesday: a 6oz sirloin or grilled chicken, Aussie Fries, and a 16oz domestic draft or Coca-Cola product, starting at $13.99. It's dine-in only, and Texas isn't on the excluded-states list.",
+      "fields": [
+        "details",
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "p-f-changs-amex-offer-10-back-on-50-at-p-f-changs-10-24",
+      "restaurant": "P.F. Chang's",
+      "title": "Amex Offer: $10 back on $50+ at P.F. Chang's",
+      "reason": "corrected",
+      "detail": "Upgraded Points' Amex Offers list, updated 2 days ago, still shows P.F. Chang's: spend $50+, get $10 back, ending November 22, 2026. Card-linked offers are targeted, so I added the targeted tag and the standard note.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "p-f-changs-citi-offer-5-back-at-p-f-changs-10-24",
+      "restaurant": "P.F. Chang's",
+      "title": "Citi Offer: 5% back at P.F. Chang's",
+      "reason": "corrected",
+      "detail": "I ran out of searches before I could re-check this, so nothing is changed except the standard targeted tag and note. The deal stays as listed and unconfirmed.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "panchitos-1-000-free-chicken-fajita-plates-4-6-p-m-10-24",
+      "restaurant": "Panchito's",
+      "title": "1,000 free chicken fajita plates, 4-6 p.m.",
+      "reason": "corrected",
+      "detail": "MySA's Oct 22, 2026 article confirms 1,000 free chicken fajita plates from 4 to 6 p.m. on Saturday, Oct 24, at 1705 S Zarzamora St. It quotes Panchito's own Facebook post, but I didn't open that post myself, so this is still one outlet.",
+      "fields": [
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "panda-express-free-birthday-reward-pick-a-small-entree-app-s-10-24",
+      "restaurant": "Panda Express",
+      "title": "Birthday gift: choose from several options",
+      "reason": "corrected",
+      "detail": "Panda's Rewards page confirms members get a birthday gift chosen from a selection of options, and its footnote says the gift is a purchase-based offer. So it isn't truly free. The specific choices still come only from KCL.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "panda-express-wok-wednesday-play-game-for-a-random-deal-10-24",
+      "restaurant": "Panda Express",
+      "title": "Wok Wednesday: play game for a weekly reward",
+      "reason": "corrected",
+      "detail": "Panda's official Wok Wednesday page and its legal terms confirm the game is for Panda Rewards members. You can play from 5am PT (7:00 San Antonio) and get one offer per member per week. The offer is algorithm-set and expires at store close that Wednesday.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "startTime",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "panera-bread-free-pastry-or-sweet-for-joining-mypanera-10-24",
+      "restaurant": "Panera Bread",
+      "title": "500 bonus points with first MyPanera purchase",
+      "reason": "corrected",
+      "detail": "Panera's own Google Play listing (updated about 15 days ago) says the new MyPanera gives 500 bonus points with your first purchase, valid for 14 days. That replaces the free pastry for joining. Panera's August 2026 press release says 250 points gets a free bagel or mini bakery treat. A free bakery treat is now a birthday perk.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "peets-coffee-amex-offer-1-500-mr-pts-on-30-at-peets-10-24",
+      "restaurant": "Peet's Coffee",
+      "title": "Amex Offer: 1,500 MR pts on $30+ at Peet's",
+      "reason": "corrected",
+      "detail": "I couldn't re-check this offer because I ran out of searches. It's a targeted Amex Offer, so it has to stay unconfirmed. I added the targeted tag and the required note, and set channel to card.",
+      "fields": [
+        "channel",
+        "notes",
+        "tags"
+      ]
+    },
+    {
+      "id": "pizza-hut-3-personal-pan-pizza-tuesdays-10-24",
+      "restaurant": "Pizza Hut",
+      "title": "$3 Personal Pan Pizza Tuesdays",
+      "reason": "corrected",
+      "detail": "Pizza Hut's own $3 Personal Pan page confirms a 1-topping Personal Pan Pizza for $3 every Tuesday, while supplies last. It says limit 4 per customer, no combining with other offers, and valid on delivery and carryout at participating locations. DealNews (about 38 days ago) also lists it.",
+      "fields": [
+        "channel",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "popeyes-3-proteins-2-sides-for-20-online-app-10-24",
+      "restaurant": "Popeyes",
+      "title": "3 proteins + 2 sides for $20 (online/app)",
+      "reason": "corrected",
+      "detail": "DealNews (posted about a week ago) lists the Popeyes Build Your Own Bundle: three proteins plus two sides for $20, online or in the app. That matches the Sporked Oct 18, 2026 listing, and popeyes.com's Limited Time Offers page shows a 'Build your own bundle' item. No end date found.",
+      "fields": [
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "popeyes-free-item-on-first-online-app-order-10-10-24",
+      "restaurant": "Popeyes",
+      "title": "Free sandwich w/ first $10+ online or app order",
+      "reason": "corrected",
+      "detail": "Popeyes' own offer page says Rewards members making their first purchase on popeyes.com or in the app get a free Chicken Sandwich (Classic or Spicy), 2-pc Signature Chicken, 3-pc Tenders or 6-pc Wings with a $10 minimum. It doesn't list 8-pc nuggets, so I removed that option.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "popeyes-rewards-2-chicken-sandwiches-9-12-wings-12-10-24",
+      "restaurant": "Popeyes",
+      "title": "Rewards: 2 chicken sandwiches $9 / 12 wings $12",
+      "reason": "corrected",
+      "detail": "Sporked listed both offers in recent weeks, and Quartz/Yahoo reported the 12-for-$12 wings/tenders deal returned for Rewards members in late Aug 2026. But popeyes.com's offers page currently shows '2 Sandwiches + Regular Side for $12' rather than a $9 two-sandwich deal, so current pricing is still unverified.",
+      "fields": [
+        "notes"
+      ]
+    },
+    {
+      "id": "qdoba-free-birthday-chips-queso-entree-at-gold-10-24",
+      "restaurant": "QDOBA",
+      "title": "Free birthday chips & queso (entree at Gold)",
+      "reason": "corrected",
+      "detail": "QDOBA's rewards page FAQ says Rewards members get free queso and chips as their birthday reward, and Gold Status members (12+ visits in a calendar year) get a free entree. The page references 2026.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "raising-canes-birthday-reward-for-caniac-club-members-10-24",
+      "restaurant": "Raising Cane's",
+      "title": "Birthday reward for Caniac Club members",
+      "reason": "corrected",
+      "detail": "Raising Cane's Caniac Club terms on its own site list 'a free drink on your birthday' among member offers. 2026 coverage (LoyaltyRewardCo) says the club now centers on birthday, anniversary and occasional offers after the sign-up reward ended in 2024.",
+      "fields": [
+        "details",
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "smoothie-king-friday-upsize-20-oz-to-32-oz-rewards-free-or-1-10-24",
+      "restaurant": "Smoothie King",
+      "title": "Free Friday upsize 20 oz to 32 oz (Rewards)",
+      "reason": "corrected",
+      "detail": "EatDrinkDeals (updated Oct 23, 2026) says Rewards members can upsize from 20 oz to 32 oz for free on Fridays. That settles the free-or-$1 question in favor of free. I couldn't load Smoothie King's own rewards page to confirm it, and the brand post it cites appears to be from 2025.",
+      "fields": [
+        "details",
+        "notes",
+        "title"
+      ]
+    },
+    {
+      "id": "sonic-drive-in-happy-hour-half-price-drinks-slushes-2-4-pm-10-24",
+      "restaurant": "Sonic Drive-In",
+      "title": "Happy Hour: half-price drinks & slushes 2-4 PM",
+      "reason": "corrected",
+      "detail": "EatDrinkDeals' Oct 2026 Sonic page still lists the 2-4 PM half-price Happy Hour with Sonic-style terms covering which drinks qualify. I replaced the 2014 source with it. No Sonic source was checked, and other parts of that page look stale.",
+      "fields": [
+        "details",
+        "local",
+        "location",
+        "notes",
+        "sourceName",
+        "sourceUrl"
+      ]
+    },
+    {
+      "id": "spechts-texas-bar-grill-kids-eat-free-thursdays-all-day-10-24",
+      "restaurant": "Specht's Texas Bar & Grill",
+      "title": "Kids eat free Thursdays (all day)",
+      "reason": "corrected",
+      "detail": "The restaurant's own site (barandgrillsanantonio.com About, FAQ and Contact pages, seen in search results) lists Kids Eat Free on Thursday. Its Contact page gives Wed-Thu hours of 11 AM-8 PM, and Fun4AlamoKids says it runs all day with every adult purchase.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "starbucks-new-rewards-members-50-off-a-handcrafted-drink-10-24",
+      "restaurant": "Starbucks",
+      "title": "New Rewards members: 50% off a handcrafted drink",
+      "reason": "corrected",
+      "detail": "EatDrinkDeals (Oct 2026) still shows the 50% off new-member fine print. But Groupon's Starbucks page (about Aug 2026) describes the new-member offer as a free handcrafted drink up to $8 with a qualifying purchase in the first week. I couldn't check Starbucks' own page, so I added that conflict to the notes.",
+      "fields": [
+        "notes"
+      ]
+    },
+    {
+      "id": "subway-code-1299for2",
+      "restaurant": "Subway",
+      "title": "2 Footlongs for $12.99 (1299FOR2)",
+      "reason": "corrected",
+      "detail": "The Freebie Guy (updated about Oct 22, 2026) lists 1299FOR2 as two footlongs for $12.99, expiring 11/15/26. Fat Kid Deals' October/November code list on X agrees and adds that it works in the app at participating stores only.",
+      "fields": [
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "subway-code-1399for2",
+      "restaurant": "Subway",
+      "title": "2 Footlongs for $13.99 (1399FOR2)",
+      "reason": "corrected",
+      "detail": "The Freebie Guy (about Oct 22, 2026) lists 1399FOR2 as two footlongs for $13.99, expiring 11/15/26. Beyond that, only coupon aggregators back it (DealsFinders, HotDeals), so it stays unconfirmed. I swapped in The Freebie Guy as the source, since this check opened that page.",
+      "fields": [
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl"
+      ]
+    },
+    {
+      "id": "subway-code-649formeal",
+      "restaurant": "Subway",
+      "title": "6\" Sub Meal for $6.49 (649FORMEAL)",
+      "reason": "corrected",
+      "detail": "The Freebie Guy (about Oct 22, 2026) lists 649FORMEAL as a 6-inch meal for $6.49, expiring 11/15/26. Fat Kid Deals' October/November list on X agrees and spells out the meal: 6-inch sub, chips and a drink.",
+      "fields": [
+        "details",
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "subway-code-799forftl",
+      "restaurant": "Subway",
+      "title": "Footlong for $7.99 (799FORFTL)",
+      "reason": "corrected",
+      "detail": "Two more sources list 799FORFTL for a $7.99 Footlong. Fat Kid Deals on X (Oct 13, 2026) gives it as the alternate to 699FORFTL, and DealsFinders shows it expiring Nov 15 and last seen Oct 22, 2026. Subway hasn't confirmed it, so the notes are updated but it stays unconfirmed.",
+      "fields": [
+        "local",
+        "notes"
+      ]
+    },
+    {
+      "id": "subway-code-mealftl",
+      "restaurant": "Subway",
+      "title": "Footlong Sub Meal for $8.99 (MEALFTL)",
+      "reason": "corrected",
+      "detail": "Fat Kid Deals on X (Oct 13, 2026) lists MEALFTL as a Footlong Meal (footlong, chips, drink) for $8.99. DealsFinders lists it expiring Nov 15 and says the cart needs a sub, a 20 oz fountain drink and chips. I added what's in the meal and corrected the single-source note.",
+      "fields": [
+        "details",
+        "local",
+        "notes"
+      ]
+    },
+    {
+      "id": "subway-subway-promo-codes-6-99-footlong-2-for-12-99-more-10-24",
+      "restaurant": "Subway",
+      "title": "Promo codes: $6.99 Footlong, 2 for $12.99 & more",
+      "reason": "corrected",
+      "detail": "Fat Kid Deals on X (Oct 13, 2026) also lists the October-November codes 699FORFTL, 799FORFTL, MEALFTL, 649FORMEAL and 1299FOR2. DealsFinders shows several of them expiring Nov 15. That makes the 'only one deal site' note wrong. The title also had the brand name in it. Subway itself hasn't confirmed the codes.",
+      "fields": [
+        "notes",
+        "title"
+      ]
+    },
+    {
+      "id": "taco-cabana-double-happy-hour-sun-thu-3-bites-2-50-margarita-10-24",
+      "restaurant": "Taco Cabana",
+      "title": "Double Happy Hour Sun-Thu: $3 bites, $2.50 margaritas",
+      "reason": "corrected",
+      "detail": "Taco Cabana's Sept 2, 2026 release shows Double Happy Hour still running in 2026, but it listed the late window as 9-11 PM, not 9 PM-2 AM, and ran it daily during September. Nothing I found confirms the post-September schedule. A happy-hour listing site (updated Oct 2026) shows a Bandera Rd store at 3-6 PM and 9 PM-2 AM, with margaritas at $3.",
+      "fields": [
+        "details",
+        "notes"
+      ]
+    },
+    {
+      "id": "wendys-0-delivery-fee-on-wendys-app-delivery-doordash-10-24",
+      "restaurant": "Wendy's",
+      "title": "$0 delivery fee on Saturdays (Wendy's app)",
+      "reason": "corrected",
+      "detail": "Wendy's own delivery page says the $0 delivery fee applies all day Saturday on app orders during college football season, not every day. BuyVia also lists it as Saturdays only through 11/21/2026. I changed days to Saturday and marked it confirmed.",
+      "fields": [
+        "days",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "tags",
+        "title"
+      ]
+    },
+    {
+      "id": "whataburger-free-medium-fries-w-whatafresher-purchase-reward-10-24",
+      "restaurant": "Whataburger",
+      "title": "Free medium fries w/ Whatafresher purchase (Rewards)",
+      "reason": "corrected",
+      "detail": "A second recent source, Money Saving Mom (posted about Oct 23, 2026), agrees with The Freebie Guy: free medium fries with a Whatafresher purchase in the Whataburger app through Oct 24, 2026. That makes two agreeing sources, so status is now confirmed.",
+      "fields": [
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "wingstop-30-wings-for-30-on-thursdays-sundays-10-24",
+      "restaurant": "Wingstop",
+      "title": "30 wings for $30 on Thursdays & Sundays",
+      "reason": "corrected",
+      "detail": "QSR Magazine (4 days ago) and EatDrinkDeals both report 30 wings for $30 every Thursday and Sunday through Jan 3, 2027. Per the Yahoo copy of the article, no code is needed and it works in store, on the website or in the app, for carryout and delivery. I changed the channel to any and switched the source.",
+      "fields": [
+        "channel",
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "arbys-free-cheesesteak-with-10-order-loaded-rewards-10-26",
+      "restaurant": "Arby's",
+      "title": "Free cheesesteak with $10+ order (Loaded Rewards)",
+      "reason": "corrected",
+      "detail": "QSR Web and Dexerto (both this week) report that Arby's Loaded Rewards members get a free Chicken or Angus Cheesesteak with a $10+ purchase, Oct 26-Nov 1. It's part of Arby's Halloween announcement, not a personalized offer. Hypefresh adds participating locations and restrictions apply.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "laynes-chicken-fingers-grand-opening-first-50-may-get-free-l-10-27",
+      "restaurant": "Layne's Chicken Fingers",
+      "title": "Grand opening: first 50 may get free Layne's for a year",
+      "reason": "corrected",
+      "detail": "What Now (Oct 23), MySA and CultureMap all say the 7249 Bandera Rd (Leon Valley) store opens Oct 27, which settles the date question. The first-50 giveaway at this store is still based only on Cohen's general 'every grand opening' quote; Layne's own announcements covered only the Oct 24 Midland and Henrico openings (first 50 dine-in guests).",
+      "fields": [
+        "details",
+        "location",
+        "notes"
+      ]
+    },
+    {
+      "id": "mellow-mushroom-kids-eat-free-tuesday-last-day-w-15-adult-or-10-27",
+      "restaurant": "Mellow Mushroom",
+      "title": "Kids eat free Tuesday (last day) w/ $15 adult order",
+      "reason": "corrected",
+      "detail": "Several 2026 articles agree on the terms: Pizza Marketplace (Aug 11, 2026), FSR/Yahoo, Holy City Sinner and Atlanta on the Cheap. Kids eat free every Tuesday through Oct 27, 2026: up to 2 kids meals with a $15+ adult purchase, kids 10 and under, dine-in only, plus the plush Mel from Sept 8. Status raised to confirmed and source updated.",
+      "fields": [
+        "local",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status"
+      ]
+    },
+    {
+      "id": "raise-the-roost-bogo-8-pc-chicken-nuggets-at-raise-the-roost-10-30",
+      "restaurant": "Raise the Roost",
+      "title": "BOGO 8-piece chicken nuggets",
+      "reason": "corrected",
+      "detail": "7-Eleven, Inc.'s own 2026 press release on its franchise site says Raise the Roost has BOGO 8-piece nuggets, valid 10/30/26-10/31/26 at participating restaurants. NACS and Complex also report it. I found no San Antonio-area Raise the Roost, so the caution note stays.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "status",
+        "title"
+      ]
+    },
+    {
+      "id": "outback-steakhouse-free-kids-meal-w-adult-entree-on-hallowee-10-31",
+      "restaurant": "Outback Steakhouse",
+      "title": "Free kids meal w/ adult entrée on Halloween",
+      "reason": "corrected",
+      "detail": "A new 2026 FSR Magazine article, also run on Yahoo and published about Oct 23, reports a free kids meal with any adult entrée on Oct 31. It covers dine-in and online orders, with code SPOOKYFREE online. The TN/MS/airport exclusions came from 2025 fine print, so I moved them to notes. Only one independent source, so it stays unconfirmed.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl"
+      ]
+    },
+    {
+      "id": "bjs-restaurant-brewhouse-veterans-day-free-pizookie-for-vets-11-11",
+      "restaurant": "BJ's Restaurant & Brewhouse",
+      "title": "Veterans Day: free Pizookie for vets (dine-in)",
+      "reason": "corrected",
+      "detail": "Military.com's 2026 list repeats BJ's 2025 terms word for word: a free Chocolate Chunk Pizookie for active-duty and retired military dining in on Nov 11, plus a bounce-back for an appetizer when you buy an entrée Nov 12-Dec 31. Military.com's 2025 page has the same terms. There's still no BJ's announcement for 2026, so I added the bounce-back terms as last year's.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl"
+      ]
+    },
+    {
+      "id": "red-lobster-veterans-day-free-veterans-shrimp-chips-tbc-11-11",
+      "restaurant": "Red Lobster",
+      "title": "Veterans Day: free Veteran's Shrimp & Chips",
+      "reason": "corrected",
+      "detail": "Veteran.com (updated this month) and Military.com's 2026 page both list a free Shrimp & Chips on Nov 11, 2026: six Walt's Shrimp, fries and coleslaw, dine-in only, with proof of service. Red Lobster itself hasn't announced it, and these sites sometimes carry over last year's text, so it stays unconfirmed.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "tags",
+        "title"
+      ]
+    },
+    {
+      "id": "smoothie-king-free-20-oz-smoothie-for-vets-12-3-2026-tba-11-11",
+      "restaurant": "Smoothie King",
+      "title": "Veterans Day: free 20-oz smoothie, 12-3 PM",
+      "reason": "corrected",
+      "detail": "A 2026 list from the American Legion Department of California (posted a day ago) gives a free 20-oz smoothie on Nov 11 from noon to 3 p.m., no purchase required. U.S. Veterans Magazine's 2026 list also calls it confirmed. Smoothie King hasn't announced it.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "title"
+      ]
+    },
+    {
+      "id": "starbucks-free-tall-brewed-coffee-for-vets-spouses-tba-11-11",
+      "restaurant": "Starbucks",
+      "title": "Veterans Day: free tall brewed coffee",
+      "reason": "corrected",
+      "detail": "Veteran.com and The Military Wallet both say veterans, military members and spouses get a free tall hot or iced coffee on Nov 11, 2026. The Military Wallet posted that in August, before any announcement, and The Krazy Coupon Lady still lists Starbucks as predicted. Starbucks hasn't posted a notice, so it stays unconfirmed; I've updated the source.",
+      "fields": [
+        "notes",
+        "sourceName",
+        "sourceUrl"
+      ]
+    },
+    {
+      "id": "texas-roadhouse-veterans-day-free-meal-voucher-2026-tba-11-11",
+      "restaurant": "Texas Roadhouse",
+      "title": "Veterans Day: free meal voucher for vets & military",
+      "reason": "corrected",
+      "detail": "In search results, Texas Roadhouse's homepage says to join them on Veterans Day, November 11 (the snippet isn't dated). Dayton Daily News (2 days ago), Veteran.com and WeSalute all list the 2026 voucher: an entrée from a select menu with two sides and a drink, proof of service required. WeSalute gives an 11 a.m.-2 p.m. pickup window.",
+      "fields": [
+        "details",
+        "endTime",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "startTime",
+        "status",
+        "tags"
+      ]
+    },
+    {
+      "id": "twin-peaks-veterans-day-free-meal-select-menu-2026-tba-11-11",
+      "restaurant": "Twin Peaks",
+      "title": "Veterans Day: free lunch from select menu",
+      "reason": "corrected",
+      "detail": "U.S. Veterans Magazine's 2026 list (posted a day ago) puts Twin Peaks under 'already confirmed for Veterans Day 2026,' as a free lunch from a select menu. That's one secondary source with no Twin Peaks announcement, so it stays unconfirmed.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "title"
+      ]
+    },
+    {
+      "id": "wendys-free-breakfast-combo-for-vets-2026-tba-11-11",
+      "restaurant": "Wendy's",
+      "title": "Free breakfast combo for veterans and military",
+      "reason": "corrected",
+      "detail": "Military.com's 2026 Veterans Day list and The Military Wallet's 2026 page (updated Aug 21, 2026) both list a free Wendy's breakfast combo on Nov 11 during breakfast hours at participating locations. No Wendy's newsroom post was found, and these roundups may carry over last year's text, so it stays unconfirmed. I updated the source and details.",
+      "fields": [
+        "details",
+        "notes",
+        "sourceName",
+        "sourceUrl",
+        "title"
+      ]
+    }
+  ],
+  "removed": [
+    {
+      "id": "dave-busters-date-night-duo-thursdays-2-eat-play-combos-dess-10-24",
+      "restaurant": "Dave & Buster's",
+      "title": "Date Night Duo Thursdays: 2 Eat & Play combos + dessert from $40",
+      "reason": "no-evidence",
+      "detail": "D&B's Date Night page now redirects to the homepage. The Date Night Duo terms survive only in the homepage's block of old fine print, next to offers that ended in 2024 and 2025. The deal launched in February 2025 and ran 'through March' 2025, and I found nothing showing it in 2026; the current combo is a different $4.99 Play & Eat Combo."
+    },
+    {
+      "id": "ihop-kids-eat-free-daily-4-10-pm-dine-in-10-24",
+      "restaurant": "IHOP",
+      "title": "Kids eat free daily 4-10 PM (dine-in)",
+      "reason": "no-evidence",
+      "detail": "I found no 2026 evidence. The only support is a KENS 5 article from about four years ago and the Fun4AlamoKids listing, last verified 9/25/2025, which now redirects. MySA's 2026 San Antonio kids-eat-free roundup doesn't show IHOP in what I could see, and IHOP's pages don't list it."
+    },
+    {
+      "id": "jimmy-johns-code-summerfriday",
+      "restaurant": "Jimmy John's",
+      "title": "Free lemonade w/ 8\" sandwich, Fridays (SUMMERFRIDAY)",
+      "reason": "expired",
+      "detail": "A 2026 Yahoo article, about three months old, says the SUMMERFRIDAY free-lemonade promo for JJ Rewards members was ending and described its last Friday. It was a summer-only promo and is no longer running in late October."
+    },
+    {
+      "id": "kfc-free-chicken-tender-snacker-w-10-rewards-10-24",
+      "restaurant": "KFC",
+      "title": "Free Chicken Tender Snacker w/ $10+ (Rewards)",
+      "reason": "expired",
+      "detail": "Sporked reported the free Snacker with a $10+ order in its late-September/early-October roundup. KFC Rewards has since switched to a different daily offer each day through Oct. 31, with no $10 Snacker deal in it (Yahoo, 3 days ago)."
+    },
+    {
+      "id": "mcdonalds-2-breakfast-sandwich-app-coupon-10-24",
+      "restaurant": "McDonald's",
+      "title": "$2 breakfast sandwich (app coupon)",
+      "reason": "expired",
+      "detail": "Living on the Cheap and Dexerto both say the $2 app breakfast sandwich deal ran only through October 4, 2026. It no longer appears on McDonald's deals page."
+    },
+    {
+      "id": "mcdonalds-free-medium-fries-fridays-w-1-app-purchase-10-24",
+      "restaurant": "McDonald's",
+      "title": "Free medium fries Fridays w/ $1+ app purchase",
+      "reason": "expired",
+      "detail": "McDonald's own deals page lists the free medium fries with a $1+ app purchase as 'Valid 1x/week thru 10/4/26' and usable on any day, not just Fridays. It ended before today, so the Brand Eating listing is out of date."
+    },
+    {
+      "id": "the-rickshaw-cafe-kids-10-under-eat-free-mon-tue-3-10-pm-10-24",
+      "restaurant": "The Rickshaw Cafe",
+      "title": "Kids 10 & under eat free Mon & Tue 3-10 PM",
+      "reason": "expired",
+      "detail": "Yelp (updated September 2026) marks The Rickshaw Cafe at 8202 N Loop 1604 W as CLOSED, and MapQuest lists it as permanently closed. The only source for the deal is Cheapism's 2025 roundup."
+    },
+    {
+      "id": "jersey-mikes-sandwich-day-0-delivery-predicted-11-03",
+      "restaurant": "Jersey Mike's",
+      "title": "Sandwich Day: $0 delivery (predicted)",
+      "reason": "no-evidence",
+      "detail": "KCL's Sandwich Day page (updated Oct 12, 2026) still lists Jersey Mike's $0 delivery only as a prediction; McAlister's is the only confirmed deal there. Searches turned up only 2025 coverage and no 2026 announcement."
+    },
+    {
+      "id": "popeyes-sandwich-day-free-chicken-sandwich-predicted-11-03",
+      "restaurant": "Popeyes",
+      "title": "Sandwich Day: free chicken sandwich (predicted)",
+      "reason": "no-evidence",
+      "detail": "KCL (updated Oct 12, 2026) lists this only as a prediction. Coverage from 2024 and 2025 (Today, MySA) shows Popeyes' free-sandwich promotion was tied to National Fried Chicken Sandwich Day (Nov 9), not Sandwich Day. I found no 2026 announcement."
+    },
+    {
+      "id": "schlotzskys-sandwich-day-medium-sandwich-discount-predicted-11-03",
+      "restaurant": "Schlotzsky's",
+      "title": "Sandwich Day: medium sandwich discount (predicted)",
+      "reason": "no-evidence",
+      "detail": "KCL (updated Oct 12, 2026) lists this only as a prediction. Earlier Schlotzsky's $5 medium sandwich promotions show up for 2023 (Schlotzsky's Facebook) and 2025 (Today), but I found nothing for 2026."
+    },
+    {
+      "id": "kfc-fried-chicken-sandwich-day-free-sandwich-predicted-11-07",
+      "restaurant": "KFC",
+      "title": "Fried Chicken Sandwich Day: free sandwich (predicted)",
+      "reason": "no-evidence",
+      "detail": "KFC hasn't announced this. The listing's only source is a deal site's guess at a Nov 7-9 window. I couldn't run a dedicated KFC search before hitting the tool limit, and nothing I did see shows a 2026 KFC offer. Re-add it if KFC announces one."
+    },
+    {
+      "id": "taco-cabana-thanksgiving-bean-cheese-taco-discount-predicted-11-26",
+      "restaurant": "Taco Cabana",
+      "title": "Thanksgiving: Bean & Cheese taco discount (predicted)",
+      "reason": "no-evidence",
+      "detail": "The only support is a Krazy Coupon Lady forecast. In 2025 (per Today.com), Texas locations opened 6 AM to 1 PM on Thanksgiving with $10 Bean & Cheese Taco Boxes, but I found no 2026 announcement from Taco Cabana. Re-add it if they announce it in November."
+    },
+    {
+      "id": "chipotle-black-friday-cyber-monday-0-delivery-predicted-11-27",
+      "restaurant": "Chipotle",
+      "title": "Black Friday-Cyber Monday $0 delivery (predicted)",
+      "reason": "no-evidence",
+      "detail": "No 2026 announcement was found, only the KCL prediction. In 2025, Chipotle ran $0 delivery on $10+ orders with code CYBER25 (AARP, dealnews), but that says nothing about 2026. Re-add it when Chipotle announces it."
+    },
+    {
+      "id": "krispy-kreme-black-friday-12-dozens-free-doughnut-predicted-11-27",
+      "restaurant": "Krispy Kreme",
+      "title": "Black Friday: $12 dozens + free doughnut (predicted)",
+      "reason": "no-evidence",
+      "detail": "The Krispy Kreme site and offers page showed no Black Friday 2026 promotion in search results; the only support is the KCL prediction page, which even gives Black Friday's date wrong as Dec. 27, 2026."
+    },
+    {
+      "id": "raise-the-roost-bogo-chicken-sandwiches-biscuits-predicted-11-27",
+      "restaurant": "Raise the Roost",
+      "title": "BOGO chicken sandwiches & biscuits (predicted)",
+      "reason": "no-evidence",
+      "detail": "The only support is a KCL prediction. I found no 2026 announcement from 7-Eleven/Raise the Roost and didn't verify any San Antonio-area Raise the Roost location."
+    },
+    {
+      "id": "smoothie-king-black-friday-free-upsize-3x-points-predicted-11-27",
+      "restaurant": "Smoothie King",
+      "title": "Black Friday: free upsize + 3X points (predicted)",
+      "reason": "no-evidence",
+      "detail": "The only support is the KCL prediction page, which isn't a reliable source (it lists Black Friday as Dec. 27, 2026). I found no 2026 announcement from Smoothie King."
+    },
+    {
+      "id": "taco-cabana-black-friday-weekend-refresher-margarita-deal-pr-11-27",
+      "restaurant": "Taco Cabana",
+      "title": "Black Friday weekend: Refresher & margarita deal (predicted)",
+      "reason": "no-evidence",
+      "detail": "The only support is the KCL 'predicted' list. I found no 2026 Black Friday announcement from Taco Cabana; searches turned up only 2025 coverage."
+    }
+  ],
+  "rejected": [
+    {
+      "id": "new-national-weekly-1",
+      "restaurant": "Jack in the Box",
+      "title": "Taco Tuesday: 2 tacos for $0.75 w/ app purchase",
+      "reason": "no-evidence",
+      "detail": "Sporked (Oct 18) is the only source for a weekly run through Dec 27, and that end date is a Sunday. Other 2026 reports conflict: Passionate Penny Pincher (Sept) says the 75¢ tacos run only on the first Tuesday of each month with a $1+ purchase, and another site says the promo ended July 7, 2026. I found no Jack in the Box source."
+    },
+    {
+      "id": "new-national-weekly-6",
+      "restaurant": "KFC",
+      "title": "Free bucket w/ $15+ online/app order (KFSPEED)",
+      "reason": "expired",
+      "detail": "KFC posted the KFSPEED free bucket on X on Sept 28, 2026. Sporked's dedicated article and Slickdeals both say it ran through Oct 11, 2026, so the Oct 18 roundup repeated an offer that had already ended."
+    },
+    {
+      "id": "new-national-weekly-7",
+      "restaurant": "Burger King",
+      "title": "Free Original Chicken Sandwich w/ $3+ (Royal Perks)",
+      "reason": "expired",
+      "detail": "Hip2Save reports the free Original Chicken Sandwich with a $3 purchase as a Royal Perks offer for Sept 20 only, part of BK's National Cheeseburger Day week. Sporked's Oct 18 roundup repeats it without dates, and that roundup also includes an expired KFC code, so I found no current evidence."
+    },
+    {
+      "id": "new-sa-chains-sports-2",
+      "restaurant": "Church's Texas Chicken",
+      "title": "Big Deal Boxes starting at $5",
+      "reason": "expired",
+      "detail": "NRN dates the launch Sept 1, 2026, but Brand Eating (Sep 21, 2026) says the $5 Big Deal Box was a limited-time offer through September 27, 2026. Church's own page also calls it a limited-time deal, so it has most likely ended."
+    },
+    {
+      "id": "new-loyalty-perks-6",
+      "restaurant": "Whataburger",
+      "title": "Free birthday treat for Whataburger Rewards members",
+      "reason": "no-evidence",
+      "detail": "The only source is The Freebie Guy, which I couldn't open. Whataburger's 2026 newsroom results only cover its company-birthday app deals in August, and Penny Hoarder's current birthday list doesn't include Whataburger. No primary source or 2026 evidence backs a member birthday reward."
+    },
+    {
+      "id": "new-loyalty-perks-7",
+      "restaurant": "Jack in the Box",
+      "title": "Free birthday dessert (Jack Pack Rewards)",
+      "reason": "no-evidence",
+      "detail": "Searching found only Jack in the Box's 2024 'Jack Box birthday week' promotions, not a member birthday dessert. Penny Hoarder's current list doesn't include Jack in the Box. I found no 2026 or primary-source evidence."
+    },
+    {
+      "id": "new-loyalty-perks-9",
+      "restaurant": "Cracker Barrel",
+      "title": "Free birthday dessert (Cracker Barrel Rewards)",
+      "reason": "no-evidence",
+      "detail": "The only source is The Freebie Guy, which I couldn't open. Cracker Barrel isn't on Penny Hoarder's current birthday list, and I found no 2026 or primary-source evidence of a birthday dessert or the 12-month purchase rule."
+    },
+    {
+      "id": "new-loyalty-perks-11",
+      "restaurant": "Hooters",
+      "title": "10 free wings on your birthday (Hooters app)",
+      "reason": "no-evidence",
+      "detail": "The only source is The Freebie Guy, which I couldn't open. Hooters isn't on Penny Hoarder's current birthday list, and I found no 2026 or primary-source evidence of 10 free birthday wings."
+    }
+  ],
+  "duplicates": [],
+  "benefits": {
+    "changes": [
+      {
+        "id": "amex-platinum-fhr-stays-daily-breakfast-for-two-100-amenity",
+        "title": "FHR stays: daily breakfast for two + $100 credit",
+        "reason": "updated",
+        "detail": "Amex's Platinum page now lists the FHR perks itself: daily breakfast for two, a $100 credit toward eligible charges such as food and beverage, an upgrade when available, and guaranteed 4pm checkout, plus a two-night minimum for the hotel credit starting Jan 1, 2027.",
+        "fields": [
+          "details",
+          "howToUse",
+          "notes",
+          "sourceUrl",
+          "status",
+          "title"
+        ]
+      },
+      {
+        "id": "amex-platinum-hilton-honors-gold-status-hotel-f-b-perk",
+        "title": "Hilton Honors Gold status (hotel F&B perk)",
+        "reason": "updated",
+        "detail": "Amex's Platinum page now spells out the food perk: Hilton Honors Gold (enrollment required) gives a daily food and beverage credit at select brands in the U.S. and daily continental breakfast for you and one more guest at select brands outside the U.S. No dollar amount is given.",
+        "fields": [
+          "details",
+          "howToUse",
+          "notes",
+          "sourceUrl",
+          "status"
+        ]
+      },
+      {
+        "id": "citi-6x-points-at-restaurants-on-citi-nights-fri-sat",
+        "title": "6x points at restaurants on Citi Nights (Fri/Sat)",
+        "reason": "status",
+        "detail": "I hit the tool limit before I could open Citi's Strata Elite page, so I couldn't re-check this today; no change found.",
+        "fields": [
+          "status"
+        ]
+      }
+    ],
+    "ignored": []
+  },
+  "cards": {
+    "changes": [
+      {
+        "id": "the-platinum-card-from-american-express",
+        "title": "The Platinum Card from American Express",
+        "reason": "updated",
+        "detail": "Amex's own Platinum page confirms the $895 fee, $195 per additional card, 5X on flights (up to $500K per year), 5X on prepaid hotels and 1X on other purchases, so the source is switched to Amex.",
+        "fields": [
+          "earn",
+          "notes",
+          "sourceUrl"
+        ]
+      },
+      {
+        "id": "capital-one-quicksilver-cash-rewards-credit-card",
+        "title": "Capital One Quicksilver Cash Rewards Credit Card",
+        "reason": "updated",
+        "detail": "Capital One's comparison page confirms unlimited 1.5% on every purchase and says Quicksilver also earns elevated rewards through Capital One Travel and 5% on Capital One Entertainment, so the note about travel rewards is corrected.",
+        "fields": [
+          "notes",
+          "sourceUrl"
+        ]
+      },
+      {
+        "id": "capital-one-savorone-rewards",
+        "title": "Capital One SavorOne Rewards",
+        "reason": "added",
+        "detail": "Capital One's own SavorOne page shows a $39-fee card with 3% at grocery stores and on dining, entertainment and streaming, and 1% on everything else."
+      },
+      {
+        "id": "capital-one-savor-rewards-for-students",
+        "title": "Capital One Savor Rewards for Students",
+        "reason": "added",
+        "detail": "Capital One's Savor card listing includes Savor Rewards for Students: $0 annual fee, 3% at grocery stores and on dining and entertainment (streaming is also named), and 1% on other purchases."
+      },
+      {
+        "id": "capital-one-ventureone-rewards-credit",
+        "title": "Capital One VentureOne Rewards Credit Card",
+        "reason": "added",
+        "detail": "Capital One's travel cards page lists VentureOne Rewards at a $0 fee with 1.25X miles on every purchase, including food."
+      }
+    ],
+    "ignored": []
+  },
+  "problems": [],
+  "failures": [],
+  "deferred": [],
+  "discoveryNotes": [
+    {
+      "angle": "sa-local-news",
+      "notes": "I found no new local free-food deals for Oct 24–Nov 14, 2026 that I could confirm. I hit the search limit after about a dozen searches, so coverage of New Braunfels, Schertz, Cibolo, Universal City, Boerne, Helotes, Converse and Live Oak is thin. Please run this task again soon.\n\nChecked and skipped:\n- Tropical Smoothie Cafe opening at 7411 N. Loop 1604 E today (first 50 get free smoothies for a year; $1.99 smoothies all day): already in the app.\n- Already over: Smalls Sliders at 8743 SH-151 W (opened Oct 12; first 100 who bought a combo got a free monthly combo for a year) and Reunion Coffee's free-drink reopening day (Oct 11).\n- Smalls Sliders lead: the franchisee (Hakim Corp.) says two more San Antonio locations will open in the next 3–4 months. No dates yet; watch for another \"free for a year\" opening.\n- Free-entry events where food is sold, not given away (not added):\n  - Market Square Día de los Muertos, Oct 24–25.\n  - Calaveras de Azucar Festival at Market Square, Oct 31 (10am–9:30pm) and Nov 1 (10am–8:30pm).\n  - Luminaria on Houston St, Nov 13–15.\n- Panda Fest at Hemisfair is Nov 21–22, outside the date window.\n- Boerne openings (Firehouse Subs, a Panda Express-type project) have no confirmed dates or giveaways. The Screaming Goat Yard & Tap near the RIM is due to open by the end of November; no promo found (its article wouldn't load)."
+    },
+    {
+      "angle": "national-weekly",
+      "notes": "I ran out of search and fetch calls early, so most of these deals come from one source, Sporked's Oct 18 weekly roundup. All are marked unconfirmed. Leads I didn't submit: Cicis $5.99 buffet for Rewards members on Mon/Tue (I couldn't confirm a San Antonio location). Long John Silver's daily Rewards codes: MONDAY, 10TUES, WED25, 3MTHURS, DTFISH, WKNDFAM. Moe's BOGO entrée on Oct 31. MOOYAH kids eat free on Halloween. KCL also lists Grubhub-style offers: IHOP free short stack with $15+, KFC free 2-pc combo with $15+, Pizza Hut BOGO Personal Pan, Sonic free mozzarella sticks or pretzel twist on a first $20+ order. Those had no dates. 7-Eleven also offers $3 8-pc boneless wings with a whole pizza and 2 roller-grill items for $3.50. National Sandwich Day (Nov 3) deals are still mostly predicted, apart from McAlister's, which the app already has."
+    },
+    {
+      "angle": "recurring-weekly",
+      "notes": "My search limit ran out early, so I found no new weekly specials I could confirm. Leads to check later: (1) Denny's kids eat free: a MySA article updated Aug 2026 says kids usually eat free with a $6+ adult entrée, but it gives no day or time, and locations vary. (2) Jason's Deli kids eat free: the brand's page says it's at participating delis only, with a kids meal free with an adult entrée (dine-in or pickup), but days and times vary by deal. I found no San Antonio days. (3) Torchy's Tacos happy hour: the only sources were an old Tripadvisor photo caption ($6 Torchy Tini, Thursday 3-7) and a 2025 roundup that isn't specific to San Antonio. Both are out of date. (4) Fuzzy's Taco Shop happy hour and Taco Tuesday: I only saw a 2025 Denver-area article. Nothing for San Antonio this year. Other ideas I didn't get to: Twin Peaks, Bubba's 33, Golden Corral and Main Event specials at San Antonio locations, Chili's weekly specials, and Taco Bell's recurring Tuesday Drops."
+    },
+    {
+      "angle": "upcoming-dates",
+      "notes": "I hit the search/fetch limit early, so I didn't check gift-card bonuses at Chili's, Texas Roadhouse or Olive Garden, Thanksgiving-week deals, or Whataburger and other local brands. Those are worth a follow-up search. National Sandwich Day (Tue 11/3): the only confirmed deal is McAlister's $5 sandwich, already in the app. Jimmy John's, Subway, Potbelly, Popeyes and Schlotzsky's are still predictions (Krazy Coupon Lady). National Nacho Day (11/6): the only lead is Moe's rewards nachos, from one aggregator, so I skipped it. Taco Bell's 'Steal a Base, Steal a Taco' is NOT running for the 2026 World Series (USA Today via Yahoo). Possible Veterans Day leads I skipped because I'm not sure they have San Antonio locations: Carrabba's (BOGO take-home entrée Nov 8-10, free appetizer or dessert Nov 11), Smashburger (free All-American Smash), Capriotti's (free small sub with purchase), Bar Louie (free burger Nov 10-11). Menchie's free 6 oz froyo is only confirmed for 2025. Also from Dinova's 2026 guide: Dave & Buster's lists free unlimited game play and/or free dessert with an entrée (dine-in), which could fill in the 'TBA' D&B entry already in the app. Spurs 2026-27: the only food perk found is the Fri-Sun meal-deal add-on, already in the app."
+    },
+    {
+      "angle": "card-offers",
+      "notes": "I hit the search limit early, so I didn't get to cover Capital One Offers or to double-check every lead. Leads I didn't submit: (1) Amex Offer at Moe's Southwest Grill: 15% back on one purchase, up to $6, expires Oct 31, 2026 (from Upgraded Points' Amex Offers list, updated Oct 21). I left it out because I couldn't confirm there's a Moe's in the San Antonio area. (2) Upgraded Points lists a Citi Uber Eats offer as expiring Sept 18, 2026. That conflicts with the Oct 31 end date in the app's existing Uber Eats Citi entry and should be rechecked. (3) Capital One Dining's reservation platform shut down in late September 2026; its exclusive dining experiences moved to Capital One Entertainment. (4) The other Amex dining offers I saw (Grand Lux Cafe, Five Napkin Burger, Boqueria, Wally's, Acadia) are probably not at San Antonio restaurants. Athletic Brewing isn't a restaurant. I also only checked Pei Wei's San Antonio locations from memory, not with a search, so confirm there's a nearby Pei Wei before relying on that deal."
+    },
+    {
+      "angle": "sa-chains-sports",
+      "notes": "My search budget ran out early, so I never got to Bush's Chicken, Taco Palenque, Pollos Asados Los Norteños, Jim's, Rudy's, San Antonio FC or Raising Cane's own pages. Those are worth another pass. What I checked: (1) Spurs Tipoff Week (Oct 13-20, including the Whataburger app's free onion rings on Oct 16) is over, and the 2026 playoff and Finals win freebies (Taco Palenque SPURSWIN etc.) are over too. I found no regular-season 'if the Spurs win' deal for 2026-27. (2) UTSA football: the goutsa.com/promotions page only lists sweepstakes: a Raising Cane's 'MVPet' pet-photo contest (2 tickets plus a Cane's prize pack, one winner per home game), a $100 McDonald's gift card giveaway and a Gold's Gym contest for the final home game vs. Tulsa. At home games, in-game prizes like Whataburger gift cards and Raising Cane's coupons go to random fans, and sponsor booths in Rowdy Town Live (Whataburger, Raising Cane's) hand out food samples. None of that is a guaranteed deal, so I left it out. (3) Whataburger's holiday menu (from Oct 20), Taco Cabana's Chicken Poblano lineup (Oct 21) and Bill Miller's fall pumpkin pie ($2.75 a slice) are new menu items, not discounts."
+    },
+    {
+      "angle": "loyalty-perks",
+      "notes": "I ran out of searches and fetches early, so the list is short. I couldn't confirm: Jason's Deli birthday dessert (its FAQ asks \"Do you still offer a birthday reward?\", so it may have ended), Pei Wei's actual items (FAQ not opened), Smashburger birthday shake, Potbelly, CAVA, Insomnia Cookies, Benihana and Rita's (not sure they have San Antonio locations). Zaxby's, Moe's and Noodles skipped as probably not in San Antonio. Most of the unconfirmed birthday perks come from just one aggregator (The Freebie Guy, updated about Oct 2026) and should be checked in each brand's app."
+    }
+  ],
+  "usage": {
+    "requests": 34,
+    "incompleteRequests": 0,
+    "inputTokens": 1120,
+    "outputTokens": 266663,
+    "cacheReadTokens": 15537569,
+    "cacheWriteTokens": 1157782,
+    "webSearches": 234,
+    "webFetches": 151,
+    "estimatedSearchCostUsd": 2.34
+  }
+}
