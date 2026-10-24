@@ -1,0 +1,22 @@
+{
+  "about": "Restaurants the weekly search checks for promo codes. Edit freely: add a chain, remove one you never visit. Restaurants that show up in 2+ active deals in deals.json are searched too.",
+  "restaurants": [
+    "Whataburger", "Taco Cabana", "Church's Texas Chicken", "Bill Miller Bar-B-Q", "Bush's Chicken", "Taco Palenque",
+    "Las Palapas", "Los Barrios", "Golden Chick", "Shipley Do-Nuts", "Rudy's Country Store and Bar-B-Q",
+    "McDonald's", "Burger King", "Wendy's", "Jack in the Box", "Sonic Drive-In", "Taco Bell", "KFC", "Popeyes",
+    "Chick-fil-A", "Raising Cane's", "Arby's", "Dairy Queen", "Five Guys", "Shake Shack", "Freddy's Frozen Custard & Steakburgers",
+    "Culver's", "In-N-Out Burger", "Wingstop", "Dave's Hot Chicken", "Chicken Salad Chick", "Velvet Taco",
+    "Chipotle", "QDOBA", "Freebirds World Burrito", "Torchy's Tacos", "Chuy's", "Panda Express",
+    "Subway", "Jersey Mike's", "Jimmy John's", "Firehouse Subs", "Jason's Deli", "McAlister's Deli", "Schlotzsky's",
+    "Which Wich", "Panera Bread", "Einstein Bros. Bagels", "La Madeleine", "Paris Baguette", "Kolache Factory",
+    "Domino's", "Pizza Hut", "Papa Johns", "Little Caesars", "Marco's Pizza", "Papa Murphy's", "MOD Pizza",
+    "Mellow Mushroom", "Peter Piper Pizza", "Chuck E. Cheese",
+    "Starbucks", "Dunkin'", "Dutch Bros", "7 Brew", "Krispy Kreme", "Smoothie King", "Tropical Smoothie Cafe", "Jamba",
+    "Baskin-Robbins", "Marble Slab Creamery", "Crumbl", "Nothing Bundt Cakes", "Cinnabon", "Auntie Anne's",
+    "Applebee's", "Chili's", "IHOP", "Denny's", "Cracker Barrel", "Olive Garden", "Red Lobster", "Outback Steakhouse",
+    "Texas Roadhouse", "Red Robin", "BJ's Restaurant & Brewhouse", "Cheddar's Scratch Kitchen", "The Cheesecake Factory",
+    "Buffalo Wild Wings", "Pluckers Wing Bar", "Hooters", "Twin Peaks", "Walk-On's Sports Bistreaux", "Golden Corral",
+    "Luby's", "Black Bear Diner", "Dave & Buster's", "Main Event",
+    "7-Eleven / Stripes", "DoorDash", "Uber Eats", "Grubhub"
+  ]
+}
