@@ -23,7 +23,6 @@ import {
   BUNDLED,
   KEYS,
   loadPersisted,
-  loadSavedSync,
   reschedule,
   syncDeals,
   type SyncMeta,
@@ -144,26 +143,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       const last = latest.current.sync.lastSuccess;
       if (!last || Date.now() - Date.parse(last) > STALE_MS) refresh();
     };
-    // A background run may have downloaded a newer file while the app was away; use it before
-    // deciding whether another download is needed.
-    const adoptSaved = async () => {
-      const saved = await loadSavedSync();
-      const cur = latest.current;
-      if (saved.file && saved.file.updatedAt > cur.file.updatedAt) {
-        latest.current = { ...latest.current, file: saved.file };
-        setFile(saved.file);
-      }
-      if (saved.sync?.lastSuccess && saved.sync.lastSuccess > (cur.sync.lastSuccess ?? '')) {
-        latest.current = { ...latest.current, sync: saved.sync };
-        setSync(saved.sync);
-      }
-    };
     refreshIfStale();
     const sub = AppState.addEventListener('change', (s) => {
       if (s !== 'active') return;
-      adoptSaved()
-        .catch(() => undefined)
-        .finally(refreshIfStale);
+      refreshIfStale();
       getPermission().then(setPermission).catch(() => undefined);
     });
     return () => sub.remove();

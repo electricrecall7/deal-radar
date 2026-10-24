@@ -5,7 +5,6 @@ import { useColorScheme } from 'react-native';
 
 import { NotificationRouter } from '@/components/notification-router';
 import { Colors } from '@/constants/theme';
-import { registerBackgroundSync } from '@/lib/background';
 import { configureNotificationHandler } from '@/lib/notifications';
 import { AppStateProvider, useAppState } from '@/state/app-state';
 
@@ -23,10 +22,6 @@ function SplashGate() {
 export default function RootLayout() {
   const scheme = useColorScheme() === 'dark' ? 'dark' : 'light';
   const colors = Colors[scheme];
-
-  useEffect(() => {
-    registerBackgroundSync();
-  }, []);
 
   const navTheme = scheme === 'dark' ? DarkTheme : DefaultTheme;
   return (

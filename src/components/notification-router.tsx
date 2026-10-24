@@ -12,7 +12,7 @@ export function NotificationRouter() {
   useEffect(() => {
     if (!ready || !response || response.actionIdentifier !== Notifications.DEFAULT_ACTION_IDENTIFIER) return;
     const data = response.notification.request.content.data as { dealId?: string | null; kind?: string };
-    if (data.kind === 'refresh' || data.kind === 'new-deals') refresh();
+    if (data.kind === 'refresh') refresh();
     if (data.dealId) router.push({ pathname: '/deal/[id]', params: { id: data.dealId } });
     else if (data.kind === 'credits') router.navigate('/cards');
     else if (data.kind === 'week-preview') router.navigate('/week');

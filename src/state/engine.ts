@@ -1,4 +1,4 @@
-// Load / sync / schedule without React, so the background task can reuse it.
+// Load / sync / schedule, kept free of React so it stays easy to test and reuse.
 import bundledJson from '../../data/deals.json';
 
 import type { UsedCredits } from '@/lib/benefits';
@@ -76,12 +76,6 @@ export async function loadPersisted(): Promise<Persisted & { failed: UserKey[] }
     sync: valueOf(sync) ?? {},
     failed,
   };
-}
-
-/** What a background run may have saved since the app last looked. */
-export async function loadSavedSync(): Promise<{ file: DealsFile | null; sync: SyncMeta | null }> {
-  const [file, sync] = await Promise.all([readJSON<unknown>(KEYS.file), readJSON<SyncMeta>(KEYS.sync)]);
-  return { file: parseSavedFile(valueOf(file)), sync: valueOf(sync) };
 }
 
 export async function fetchDealsFile(url: string, timeoutMs = 15_000): Promise<{ file: DealsFile; dropped: number }> {

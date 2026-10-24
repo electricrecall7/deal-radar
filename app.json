@@ -41,8 +41,7 @@
           "color": "#D9480F",
           "enableRemoteNotifications": false
         }
-      ],
-      "expo-background-task"
+      ]
     ],
     "experiments": {
       "reactCompiler": true
