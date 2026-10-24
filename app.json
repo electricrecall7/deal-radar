@@ -46,6 +46,17 @@
     ],
     "experiments": {
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "933d7e61-406d-4538-9448-3b2bd638bc07"
+      }
+    },
+    "owner": "cryptoee2"
   }
 }
