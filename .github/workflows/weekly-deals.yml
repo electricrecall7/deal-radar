@@ -1,0 +1,94 @@
+# Weekly deal search. Two runs a week, each with its own time budget:
+#   Monday   - re-verify data/deals.json, drop ended deals, search for new San Antonio deals and
+#              re-check card benefits.
+#   Thursday - search for promo codes at every restaurant in data/code-watchlist.json (plus any
+#              restaurant with 2+ deals), double-check them, and add the ones that hold up.
+# Each run commits data/deals.json and data/last-run.json when something changed.
+#
+# Required secret: ANTHROPIC_API_KEY, a Claude API key from https://platform.claude.com.
+# Add it under Settings > Secrets and variables > Actions > New repository secret.
+# Optional repository variables (same page, Variables tab): DEAL_MODEL (default claude-opus-5-5) and
+# DEAL_EFFORT (low | medium | high | xhigh | max, default high).
+# To preview without spending anything, run it from the Actions tab with mode "dry-run".
+
+name: Weekly deal search
+
+on:
+  schedule:
+    # 10:00 UTC = 5 AM CDT / 4 AM CST, before the app's 10 AM Monday nudge.
+    - cron: '0 10 * * 1'
+    - cron: '0 10 * * 4'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'deals = Monday run, codes = Thursday promo-code run, dry-run = preview only'
+        type: choice
+        options: [deals, codes, dry-run]
+        default: deals
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-deals
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      # The branch tip, not the triggering commit: a run that waited in the concurrency queue must start
+      # from the previous run's commit or its push conflicts.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Search and verify
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEAL_MODEL: ${{ vars.DEAL_MODEL }}
+          DEAL_EFFORT: ${{ vars.DEAL_EFFORT }}
+          MODE: ${{ inputs.mode || (github.event.schedule == '0 10 * * 4' && 'codes' || 'deals') }}
+        run: |
+          case "$MODE" in
+            dry-run) npx tsx scripts/update-deals.ts --dry-run ;;
+            codes)   npx tsx scripts/update-deals.ts --only-codes ;;
+            *)       npx tsx scripts/update-deals.ts --skip-codes ;;
+          esac
+
+      - name: Test
+        run: npm test
+
+      - name: Commit updated deals
+        if: ${{ inputs.mode != 'dry-run' }}
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name 'deal-radar-bot'
+          git config user.email 'deal-radar-bot@users.noreply.github.com'
+          for f in data/deals.json data/last-run.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m "Deal update $(date -u +%Y-%m-%d)"
+          # Someone may have pushed while this ran. Never resolve a conflict in deals.json automatically:
+          # a half-merged file could drop deals or not parse, so stop and say so instead.
+          if ! git pull --rebase origin "$BRANCH"; then
+            git rebase --abort || true
+            echo "::error title=Deal update not pushed::This run's commit does not rebase onto $BRANCH" \
+              '(see the git output above; usually data/deals.json changed while the run was going).' \
+              'Nothing was pushed. Re-run the workflow to redo the update on top of the latest data.'
+            exit 1
+          fi
+          git push origin "HEAD:$BRANCH"
