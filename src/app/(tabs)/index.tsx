@@ -14,7 +14,6 @@ import { Button, Card, EmptyState, Screen, SectionHeader } from '@/components/ui
 import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { benefitDaysLeft, isBenefitUsed, type UsedCredits } from '@/lib/benefits';
-import { benefitAppliesToUser } from '@/lib/card-variants';
 import { addDays, diffDays, toYMD, weekday, type YMD } from '@/lib/dates';
 import {
   daysLeftLabel,
@@ -26,8 +25,8 @@ import {
 } from '@/lib/format';
 import { CARD_META, CHANNEL_LABEL } from '@/lib/meta';
 import { compareDeals, dealKind, isOver, LONG_PROMO_DAYS, occursOn, spanDays } from '@/lib/occurrences';
-import { wantsBenefit, type Prefs } from '@/lib/prefs';
-import type { Benefit, CardInfo, Deal } from '@/lib/schema';
+import { isDealHidden, wantsBenefit, type Prefs } from '@/lib/prefs';
+import type { Benefit, Deal } from '@/lib/schema';
 import { useAppState } from '@/state/app-state';
 
 const ENDING_SOON_DAYS = 3;
@@ -35,6 +34,7 @@ const CREDIT_WARN_DAYS = 5;
 const COMING_UP_DAYS = 7;
 const NEW_WINDOW_DAYS = 7;
 const NEW_PREVIEW = 6;
+const CODES_PREVIEW = 5;
 
 type PerkGroup = 'birthday' | 'signup' | 'other';
 const PERK_LABEL: Record<PerkGroup, string> = {
@@ -50,6 +50,8 @@ interface TodaySections {
   alsoRunning: Deal[];
   comingUp: { day: YMD; deals: Deal[] }[];
   fresh: Deal[];
+  /** Every code usable today, soonest-expiring first, so monthly codes aren't buried in other sections. */
+  codes: Deal[];
   perks: { group: PerkGroup; deals: Deal[] }[];
   perkCount: number;
 }
@@ -79,16 +81,14 @@ export default function TodayScreen() {
   const [filter, setFilter] = useState<CategoryFilterValue>('all');
   const [alsoOpen, setAlsoOpen] = useState(false);
   const [newAll, setNewAll] = useState(false);
+  const [codesAll, setCodesAll] = useState(false);
   const [newPinned, setNewPinned] = useState(false);
   const [perksOpen, setPerksOpen] = useState(false);
   const [requesting, setRequesting] = useState(false);
   // Credits marked used from this screen stay put with an Undo until the screen remounts.
   const [justUsed, setJustUsed] = useState<string[]>([]);
 
-  const unhidden = useMemo(() => {
-    const hidden = new Set(prefs.hiddenDeals);
-    return deals.filter((d) => !hidden.has(d.id));
-  }, [deals, prefs.hiddenDeals]);
+  const unhidden = useMemo(() => deals.filter((d) => !isDealHidden(d, prefs)), [deals, prefs]);
 
   const visible = useMemo(() => unhidden.filter((d) => matchesCategoryFilter(d, filter)), [unhidden, filter]);
   const sections = useMemo(() => buildSections(visible, today, sync.newIds), [visible, today, sync.newIds]);
@@ -101,12 +101,12 @@ export default function TodayScreen() {
 
   const showCredits = filter === 'all' || filter === 'card';
   const credits = useMemo(
-    () => (showCredits ? creditRows(file.benefits, file.cards, prefs, used, today, justUsed) : []),
-    [showCredits, file.benefits, file.cards, prefs, used, today, justUsed],
+    () => (showCredits ? creditRows(file.benefits, prefs, used, today, justUsed) : []),
+    [showCredits, file.benefits, prefs, used, today, justUsed],
   );
 
-  const { ending, happening, alsoRunning, comingUp, fresh, perks, perkCount } = sections;
-  const lists = [ending, credits, happening, alsoRunning, comingUp, fresh];
+  const { ending, happening, alsoRunning, comingUp, fresh, codes, perks, perkCount } = sections;
+  const lists = [ending, credits, happening, alsoRunning, comingUp, fresh, codes];
   const nothing = perkCount === 0 && lists.every((l) => l.length === 0);
   const updated = updatedDay(file.updatedAt);
   const denied = permission === 'denied';
@@ -254,6 +254,22 @@ export default function TodayScreen() {
             />
           ) : null}
           {alsoOpen ? alsoRunning.map((d) => <DealCard key={d.id} deal={d} />) : null}
+        </View>
+      ) : null}
+
+      {codes.length > 0 && filter === 'all' ? (
+        <View style={styles.section}>
+          <SectionHeader title="Promo codes" detail={`${codes.length} you can use now`} />
+          {(codesAll ? codes : codes.slice(0, CODES_PREVIEW)).map((d) => (
+            <DealCard key={d.id} deal={d} />
+          ))}
+          {codes.length > CODES_PREVIEW ? (
+            <Disclosure
+              label={codesAll ? 'Show fewer' : `Show all ${codes.length}`}
+              open={codesAll}
+              onPress={() => setCodesAll(!codesAll)}
+            />
+          ) : null}
         </View>
       ) : null}
 
@@ -436,12 +452,13 @@ function buildSections(visible: Deal[], today: YMD, newIds: string[] | undefined
     .filter((g) => groups[g].length > 0)
     .map((group) => ({ group, deals: groups[group].sort(compareDeals) }));
 
-  return { ending, happening, alsoRunning, comingUp, fresh, perks, perkCount };
+  const codes = visible.filter((d) => !!d.code && d.start <= today && !isOver(d, today)).sort(byEnd);
+
+  return { ending, happening, alsoRunning, comingUp, fresh, codes, perks, perkCount };
 }
 
 function creditRows(
   benefits: Benefit[],
-  cards: CardInfo[],
   prefs: Prefs,
   used: UsedCredits,
   today: YMD,
@@ -450,7 +467,7 @@ function creditRows(
   const rows: CreditRow[] = [];
   for (const b of benefits) {
     // wantsBenefit also drops perks with period 'none' and credits muted in Alerts.
-    if (!wantsBenefit(b, prefs) || !benefitAppliesToUser(b, cards, prefs.cardVariants)) continue;
+    if (!wantsBenefit(b, prefs)) continue;
     const left = benefitDaysLeft(b, today);
     if (left === undefined || left > CREDIT_WARN_DAYS) continue;
     const isUsed = isBenefitUsed(b, used, today);

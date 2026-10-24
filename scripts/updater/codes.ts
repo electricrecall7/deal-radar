@@ -55,6 +55,7 @@ export function promoCodeAngles(restaurants: string[], batchSize = CODE_BATCH): 
       searches: CODE_SEARCHES,
       fetches: CODE_FETCHES,
       task: `Find promo codes that work right now at these restaurants: codes typed at checkout in the brand's app or website, codes for the brand on DoorDash, Uber Eats or Grubhub, rewards codes, new-customer codes, holiday codes and delivery-fee codes.
+Many fast-food chains (Dunkin', Wendy's, Taco Bell, McDonald's, Burger King and others) put out a new set of app offers and codes every month: find this month's, including app-only offers that need no code (category app, no code).
 Restaurants: ${batch.join('; ')}.
 Evidence is strict for codes, because coupon sites list stale and fake ones:
 - Coupon aggregators on their own (RetailMeNot, Coupons.com, CouponFollow, Knoji, Dealspotr, CouponBirds, Wethrift, GrabOn, DealDrop and the like) are not enough. Keep a code only if the brand announced it (site, app, press release, or an official post or email quoted by a reputable outlet), or a reputable deal site, a Slickdeals post or a Reddit thread from the last ~45 days reports it working.

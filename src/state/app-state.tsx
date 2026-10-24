@@ -17,6 +17,7 @@ import { getPermission, requestPermission, type PermissionState } from '@/lib/no
 import { DEFAULT_PREFS, restaurantKey, type Override, type Prefs } from '@/lib/prefs';
 import type { Benefit, Deal, DealsFile } from '@/lib/schema';
 import { saveJSON } from '@/lib/storage';
+import { onlyHeldCards } from '@/lib/wallet';
 
 import {
   allDeals,
@@ -35,6 +36,7 @@ const STALE_MS = 6 * 60 * 60 * 1000;
 export interface AppStateValue {
   ready: boolean;
   today: YMD;
+  /** The downloaded deal list, limited to the user's own cards (see wallet.ts). */
   file: DealsFile;
   /** Published deals plus the ones added on this phone. */
   deals: Deal[];
@@ -167,14 +169,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     if (ready) persist('custom', customDeals);
   }, [ready, customDeals, persist]);
 
+  // Syncing compares against the full download; everything the user sees uses only their own cards.
+  const shownFile = useMemo(() => onlyHeldCards(file), [file]);
+
   const rescheduleNow = useCallback(
     () =>
-      reschedule({ file, prefs, used, custom: customDeals, sync }).then((n) => {
+      reschedule({ file: shownFile, prefs, used, custom: customDeals, sync }).then((n) => {
         // null: a newer reschedule replaced this one, and it will report its own count.
         if (n !== null) setScheduledCount(n);
         return n ?? 0;
       }),
-    [file, prefs, used, customDeals, sync],
+    [shownFile, prefs, used, customDeals, sync],
   );
 
   // Rebuild the reminder queue (debounced) whenever anything that feeds it changes.
@@ -195,7 +200,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value: AppStateValue = {
     ready,
     today,
-    file,
+    file: shownFile,
     deals,
     customDeals,
     prefs,

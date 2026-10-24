@@ -13,6 +13,7 @@ import { Spacing } from '@/constants/theme';
 import { addDays, nextWeekday, weekday, type YMD } from '@/lib/dates';
 import { formatDays, formatShortDate, formatTimeRange, WEEKDAYS_LONG } from '@/lib/format';
 import { compareDeals, dealKind, isOver } from '@/lib/occurrences';
+import { isDealHidden } from '@/lib/prefs';
 import type { Deal } from '@/lib/schema';
 import { useAppState } from '@/state/app-state';
 
@@ -27,12 +28,11 @@ export default function WeeklyScreen() {
   const [filter, setFilter] = useState<CategoryFilterValue>('all');
 
   const weekly = useMemo(() => {
-    const hidden = new Set(prefs.hiddenDeals);
     return deals
-      .filter((d) => dealKind(d) === 'weekly' && !isOver(d, today) && !hidden.has(d.id))
+      .filter((d) => dealKind(d) === 'weekly' && !isOver(d, today) && !isDealHidden(d, prefs))
       .filter((d) => matchesCategoryFilter(d, filter))
       .sort(compareDeals);
-  }, [deals, prefs.hiddenDeals, today, filter]);
+  }, [deals, prefs, today, filter]);
 
   const week = useMemo<WeekDay[]>(
     () =>

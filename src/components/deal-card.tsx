@@ -1,12 +1,13 @@
 import { router } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Alert, Platform, StyleSheet, View } from 'react-native';
 
 import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import type { YMD } from '@/lib/dates';
 import { describeWhen } from '@/lib/format';
 import { CARD_META, CATEGORY_META } from '@/lib/meta';
-import { dealKind } from '@/lib/occurrences';
-import { dealNotifies } from '@/lib/prefs';
+import { dealKind, isOver } from '@/lib/occurrences';
+import { dealNotifies, restaurantKey } from '@/lib/prefs';
 import type { Deal } from '@/lib/schema';
 import { useAppState } from '@/state/app-state';
 
@@ -17,17 +18,58 @@ export function openDeal(id: string) {
   router.push({ pathname: '/deal/[id]', params: { id } });
 }
 
-/** A deal in a list: tap for details. Shows a muted bell when it won't notify. */
+/** Live deals from the same restaurant, for "hides all 6 KFC deals". */
+export function countRestaurantDeals(deals: Deal[], restaurant: string, today: YMD): number {
+  const key = restaurantKey(restaurant);
+  return deals.filter((d) => restaurantKey(d.restaurant) === key && !isOver(d, today)).length;
+}
+
+function muteMessage(restaurant: string, count: number): string {
+  const what = count > 1 ? `all ${count} ${restaurant} deals` : `${restaurant}’s deals`;
+  return `Muting hides ${what} everywhere and stops their reminders. You can unmute it in Alerts.`;
+}
+
+export function confirmMute(restaurant: string, count: number, mute: () => void) {
+  const message = muteMessage(restaurant, count);
+  if (Platform.OS === 'web') {
+    if (window.confirm(`Mute ${restaurant}? ${message}`)) mute();
+    return;
+  }
+  Alert.alert(`Mute ${restaurant}?`, message, [
+    { text: 'Cancel', style: 'cancel' },
+    { text: 'Mute', style: 'destructive', onPress: mute },
+  ]);
+}
+
+/**
+ * A deal in a list: tap for details, long-press to hide it or mute its restaurant. Shows a muted bell
+ * when it won't notify.
+ */
 export function DealCard({ deal, note }: { deal: Deal; note?: string }) {
   const theme = useTheme();
-  const { prefs, today } = useAppState();
+  const { prefs, today, deals, toggleHidden, toggleRestaurantMuted } = useAppState();
   const meta = CATEGORY_META[deal.category];
   const notifies = dealNotifies(deal, prefs);
   // Always-on perks never send reminders, so a bell would be misleading.
   const showBell = dealKind(deal) !== 'ongoing';
 
+  const showMenu = () => {
+    const count = countRestaurantDeals(deals, deal.restaurant, today);
+    const mute = () => toggleRestaurantMuted(deal.restaurant);
+    // Web has no three-button dialog, so it goes straight to the mute question.
+    if (Platform.OS === 'web') {
+      confirmMute(deal.restaurant, count, mute);
+      return;
+    }
+    Alert.alert(deal.restaurant, muteMessage(deal.restaurant, count), [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Hide this deal', onPress: () => toggleHidden(deal.id) },
+      { text: 'Mute', style: 'destructive', onPress: mute },
+    ]);
+  };
+
   return (
-    <Card accent={meta.color} onPress={() => openDeal(deal.id)}>
+    <Card accent={meta.color} onPress={() => openDeal(deal.id)} onLongPress={showMenu}>
       <View style={styles.top}>
         <ThemedText type="smallBold" style={styles.restaurant} numberOfLines={1}>
           {meta.emoji} {deal.restaurant}

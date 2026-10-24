@@ -74,7 +74,7 @@ export default function ScheduledScreen() {
 
   const { today, groups, total } = useMemo(() => {
     const now = new Date();
-    const list = planReminders({ deals, benefits: file.benefits, cards: file.cards, prefs, used, now });
+    const list = planReminders({ deals, benefits: file.benefits, prefs, used, now });
     // planReminders sorts by fire time, so each day's reminders are already contiguous.
     const byDay: { day: YMD; items: Reminder[] }[] = [];
     for (const r of list) {
@@ -83,7 +83,7 @@ export default function ScheduledScreen() {
       else byDay.push({ day: r.day, items: [r] });
     }
     return { today: todayYMD(now), groups: byDay, total: list.length };
-  }, [deals, file.benefits, file.cards, prefs, used]);
+  }, [deals, file.benefits, prefs, used]);
 
   let queued: string;
   if (permission === 'unsupported') queued = 'Preview only — browsers don’t get these reminders.';

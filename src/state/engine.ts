@@ -140,7 +140,6 @@ export async function reschedule(p: Persisted, now = new Date()): Promise<number
     benefits: p.file.benefits,
     prefs: p.prefs,
     used: p.used,
-    cards: p.file.cards,
     now,
   });
   return scheduleReminders(reminders);

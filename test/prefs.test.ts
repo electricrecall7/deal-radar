@@ -3,6 +3,7 @@ import { describe, it } from 'node:test';
 
 import {
   DEFAULT_PREFS,
+  isDealHidden,
   isRestaurantMuted,
   restaurantKey,
   wantsBenefit,
@@ -48,10 +49,10 @@ describe('wantsDeal precedence', () => {
     assert.equal(wantsDeal(deal(), p), false);
   });
 
-  it('override on beats a muted restaurant', () => {
+  it('a muted restaurant beats a per-deal override of on', () => {
     const p = prefs({ mutedRestaurants: ['taco bell'], dealOverrides: { 'tb-tue': 'on' } });
-    assert.equal(wantsDeal(deal(), p), true);
-    assert.equal(wantsDeal(deal({ id: 'other' }), p), false);
+    assert.equal(wantsDeal(deal(), p), false);
+    assert.equal(wantsDeal(deal({ restaurant: 'Whataburger' }), p), true);
   });
 
   it('override on beats a disabled category', () => {
@@ -93,6 +94,15 @@ describe('wantsDeal precedence', () => {
 
   it('a hidden deal stays silent even when everything else is on', () => {
     assert.equal(wantsDeal(deal(), prefs({ hiddenDeals: ['tb-tue'] })), false);
+  });
+});
+
+describe('isDealHidden', () => {
+  it('covers deals hidden by hand and every deal from a muted restaurant', () => {
+    const p = prefs({ hiddenDeals: ['x'], mutedRestaurants: [restaurantKey('Wendy’s')] });
+    assert.equal(isDealHidden(deal({ id: 'x' }), p), true);
+    assert.equal(isDealHidden(deal({ restaurant: "Wendy's" }), p), true);
+    assert.equal(isDealHidden(deal(), p), false);
   });
 });
 
@@ -154,10 +164,13 @@ describe('withDefaults', () => {
     const p = withDefaults(null);
     p.categories.app = false;
     p.dealOverrides.x = 'on';
-    p.cardVariants['amex-gold'] = 'amex-gold';
     assert.equal(DEFAULT_PREFS.categories.app, true);
     assert.deepEqual(DEFAULT_PREFS.dealOverrides, {});
-    assert.deepEqual(DEFAULT_PREFS.cardVariants, {});
+  });
+
+  it('drops the retired per-issuer card choice', () => {
+    const p = withDefaults({ cardVariants: { citi: 'citi-double-cash-card' } } as Partial<Prefs>);
+    assert.equal('cardVariants' in p, false);
   });
 });
 

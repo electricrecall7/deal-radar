@@ -4,10 +4,14 @@ import type Anthropic from '@anthropic-ai/sdk';
 
 import { addDays, weekday } from '../../src/lib/dates';
 import type { Benefit, CardInfo, Deal } from '../../src/lib/schema';
+import { MY_CARDS } from '../../src/lib/wallet';
 import { dealForPrompt } from './convert';
 import { SUBMIT_BENEFITS, SUBMIT_DEALS, SUBMIT_VERDICTS } from './tools';
 
 type Content = Anthropic.Beta.BetaContentBlockParam[];
+
+/** "American Express Gold Card, ..., and Citi Simplicity Card" */
+const MY_CARD_NAMES = `${MY_CARDS.slice(0, -1).map((c) => c.name).join(', ')} and ${MY_CARDS[MY_CARDS.length - 1].name}`;
 
 const WEEKDAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -16,7 +20,8 @@ export const SYSTEM_PROMPT = `You research food deals for one person who lives i
 What they care about
 - Fast-food and fast-casual chains with San Antonio-area locations: app-only offers, rewards drops, promo codes, weekly specials, food holidays.
 - Free food in San Antonio and nearby suburbs (New Braunfels, Schertz, Cibolo, Universal City, Selma, Boerne, Helotes, Converse, Live Oak, Alamo Heights, Leon Valley): giveaways, grand openings, "free food for a year" lines, festivals, sports promotions.
-- Food and delivery perks on American Express Gold, American Express Platinum, Capital One and Citi cards.
+- Food and delivery perks on the five cards they hold: ${MY_CARD_NAMES}. Ignore every other card, including other cards from the same issuers.
+- Food only: restaurants, fast food, coffee, snacks, groceries and food delivery (Uber Eats, DoorDash, Grubhub). Skip travel, hotel, airport-lounge, shopping and entertainment offers.
 - National deals count only if they can be redeemed in San Antonio. Deals limited to another city, state or region do not count.
 
 Deal fields (the submit tools describe their inputs; these rules apply everywhere)
@@ -27,7 +32,7 @@ Deal fields (the submit tools describe their inputs; these rules apply everywher
   - freebie: free food with no purchase required, or a giveaway event.
   - app: needs the brand's app or loyalty account (app-only offers, rewards drops, sign-up and birthday rewards).
   - deal: a discount, bundle or promo code anyone can use in store, at the drive-thru or online.
-  - card: a credit card offer (Amex Offers, Capital One Offers or Capital One Dining, Citi Merchant Offers).
+  - card: a credit card offer (Amex Offers, Capital One Offers, Citi Merchant Offers).
   - delivery: a DoorDash, Uber Eats, Grubhub or brand-delivery promotion.
 - channel: where it's redeemed: app, in-store, online, drive-thru, delivery, card, or any.
 - code: the promo code exactly as published; empty when none.
@@ -135,7 +140,7 @@ export const ANGLES: Angle[] = [
   {
     name: 'card-offers',
     windowDays: 35,
-    task: `Find publicly reported card-linked offers for restaurants, fast food, coffee and food delivery: Amex Offers (Gold and Platinum), Capital One Offers and Capital One Dining, and Citi Merchant Offers. Use category card, channel card, and set card. These are targeted, so status unconfirmed, tag targeted, and notes "Targeted: check your account." Include the spend threshold, reward and expiry date.`,
+    task: `Find publicly reported card-linked offers for restaurants, fast food, coffee and food delivery: Amex Offers (Gold and Platinum), Capital One Offers (Quicksilver) and Citi Merchant Offers (Custom Cash and Simplicity). Use category card, channel card, and set card. These are targeted, so status unconfirmed, tag targeted, and notes "Targeted: check your account." Include the spend threshold, reward and expiry date.`,
   },
   {
     name: 'sa-chains-sports',
@@ -200,7 +205,8 @@ For every existing benefit and card, return one review:
 - keep: unchanged. confirmed true only if the issuer's page shows it as listed.
 - update: something changed (amount, merchants, period, enrollment, name, fee, earn rates). Give the complete corrected entry and the issuer page in sourceUrl.
 - remove: the issuer discontinued it. Give the page that shows that in sourceUrl.
-Then add any missing food or delivery benefit, or any missing variant of these four card families with food earn rates (for example other Capital One or Citi cards), with its issuer page. Keep cardName on a benefit matching the card name it applies to, or empty when every variant gets it.
+Then add any missing food, dining or food-delivery benefit of these cards, with its issuer page. If one of these cards is missing from the Cards list, add it: ${MY_CARD_NAMES}. Never add any other card. Keep cardName on a benefit matching the card name it applies to, or empty when every card from that issuer gets it.
+List only food earn rates (restaurants, groceries, food delivery) plus the base rate for everything else, and skip travel, hotel and airport-lounge perks.
 Entries without a source are not changed, so always include the page you used.
 
 Benefits:

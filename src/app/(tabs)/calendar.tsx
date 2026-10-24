@@ -8,7 +8,6 @@ import { Button, Card, Chip, ChipRow, EmptyState, Screen, SectionHeader } from '
 import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { periodBounds, type PeriodBounds, type UsedCredits } from '@/lib/benefits';
-import { benefitAppliesToUser } from '@/lib/card-variants';
 import { addDays, diffDays, firstOfMonth, lastOfMonth, shiftMonth, ymdParts, type YMD } from '@/lib/dates';
 import {
   formatDays,
@@ -21,6 +20,7 @@ import {
 } from '@/lib/format';
 import { CARD_META, CATEGORY_META } from '@/lib/meta';
 import { compareDeals, dealKind, isCalendarDay, isOneDay, nextOccurrence, occursOn } from '@/lib/occurrences';
+import { isDealHidden } from '@/lib/prefs';
 import { CATEGORIES, type Benefit, type Category, type Deal } from '@/lib/schema';
 import { useAppState } from '@/state/app-state';
 
@@ -56,23 +56,17 @@ export default function CalendarScreen() {
   const monthEnd = lastOfMonth(year, month);
   const filtered = CATEGORIES.some((c) => !cats[c]);
 
-  const shown = useMemo(() => {
-    const hidden = new Set(prefs.hiddenDeals);
-    return deals.filter((d) => cats[d.category] && !hidden.has(d.id));
-  }, [deals, prefs.hiddenDeals, cats]);
+  const shown = useMemo(
+    () => deals.filter((d) => cats[d.category] && !isDealHidden(d, prefs)),
+    [deals, prefs, cats],
+  );
 
   const resets = useMemo(
     () =>
       showCredits
-        ? creditResets(
-            file.benefits.filter((b) => benefitAppliesToUser(b, file.cards, prefs.cardVariants)),
-            used,
-            today,
-            monthStart,
-            monthEnd,
-          )
+        ? creditResets(file.benefits, used, today, monthStart, monthEnd)
         : new Map<YMD, CreditReset[]>(),
-    [showCredits, file.benefits, file.cards, prefs.cardVariants, used, today, monthStart, monthEnd],
+    [showCredits, file.benefits, used, today, monthStart, monthEnd],
   );
 
   const marks = useMemo(() => {

@@ -7680,88 +7680,6 @@
       "verifiedAt": "2026-10-24"
     },
     {
-      "id": "amex-platinum-platinum-nights-by-resy-nyc-la-miami-only",
-      "card": "amex-platinum",
-      "cardName": "The Platinum Card from American Express",
-      "title": "Platinum Nights by Resy (NYC/LA/Miami only)",
-      "period": "none",
-      "merchants": [
-        "Resy"
-      ],
-      "details": "Dedicated reservation nights for U.S. Platinum Card Members at select in-demand Resy restaurants. Each restaurant has its own booking release date.",
-      "howToUse": "Add the Platinum Card to your Resy profile, then book at resy.com/platinum or in the Resy iOS app when the dates are released.",
-      "status": "confirmed",
-      "sourceUrl": "https://blog.resy.com/newsroom/resy-adds-has-snack-bar-bungalow-and-more-to-platinum-nights-by-resy-2026-lineup-plus-special-access-to-new-noma-la-residency/",
-      "notes": "Only runs in New York City, Los Angeles and Miami (plus East Hampton summer pop-ups). Not usable in San Antonio, and no Texas restaurants have been announced.",
-      "verifiedAt": "2026-10-24"
-    },
-    {
-      "id": "amex-platinum-fhr-stays-daily-breakfast-for-two-100-amenity",
-      "card": "amex-platinum",
-      "cardName": "The Platinum Card from American Express",
-      "title": "FHR stays: daily breakfast for two + $100 credit",
-      "period": "none",
-      "merchants": [
-        "Fine Hotels + Resorts (Amex Travel)"
-      ],
-      "details": "Fine Hotels + Resorts bookings through American Express Travel include daily breakfast for two, a $100 credit toward eligible charges such as food and beverage, spa or other on-property charges (these vary by property), a room upgrade on arrival when available, and guaranteed 4pm checkout.",
-      "howToUse": "Book a prepaid Fine Hotels + Resorts stay through American Express Travel with the Platinum Card.",
-      "status": "confirmed",
-      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
-      "notes": "The $100 is a per-stay property credit, not a general dining credit, and eligible charges vary by hotel. Some room categories can't be upgraded. Starting Jan 1, 2027, FHR bookings need at least two nights to count toward the separate $600 Hotel Credit. Not checked which San Antonio hotels are in FHR.",
-      "verifiedAt": "2026-10-24"
-    },
-    {
-      "id": "amex-platinum-hilton-honors-gold-status-hotel-f-b-perk",
-      "card": "amex-platinum",
-      "cardName": "The Platinum Card from American Express",
-      "title": "Hilton Honors Gold status (hotel F&B perk)",
-      "period": "none",
-      "merchants": [
-        "Hilton"
-      ],
-      "enrollment": true,
-      "details": "Platinum Card Members can enroll in complimentary Hilton Honors Gold status. On eligible stays it gives a daily food and beverage credit at select Hilton brands in the U.S., and daily continental breakfast for you and up to one more guest at select brands outside the U.S.",
-      "howToUse": "Enroll for Hilton Honors Gold in the Amex benefits section, link your Hilton Honors account, and book an eligible stay directly with Hilton or through an Accredited Travel Agent.",
-      "status": "confirmed",
-      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
-      "notes": "This is a Hilton status perk, not an Amex statement credit. Amex doesn't give the daily credit's dollar amount, and it applies only at select brands.",
-      "verifiedAt": "2026-10-24"
-    },
-    {
-      "id": "amex-platinum-free-lounge-food-centurion-sky-club-priority-p",
-      "card": "amex-platinum",
-      "cardName": "The Platinum Card from American Express",
-      "title": "Free lounge food: Centurion, Sky Club, Priority Pass",
-      "period": "none",
-      "merchants": [
-        "The Centurion Lounge",
-        "Delta Sky Club",
-        "Priority Pass"
-      ],
-      "enrollment": false,
-      "details": "Free food and drinks at Centurion Lounges, plus 10 Delta Sky Club visits a year on eligible Delta flights (Feb 1-Jan 31; unlimited after $75,000 card spend in a calendar year). Priority Pass Select lounges included, but no restaurant credits. Centurion entry is limited to 3 hours before departure.",
-      "howToUse": "Show the Platinum Card, a government ID and a same-day boarding pass. Priority Pass needs separate enrollment through Amex.",
-      "status": "confirmed",
-      "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
-      "notes": "Priority Pass needs enrollment, and its restaurant credits aren't included. No Centurion Lounge or Delta Sky Club confirmed at San Antonio airport (SAT), so this mainly helps when traveling.",
-      "verifiedAt": "2026-10-24"
-    },
-    {
-      "id": "citi-6x-points-at-restaurants-on-citi-nights-fri-sat",
-      "card": "citi",
-      "cardName": "Citi Strata Elite Card",
-      "title": "6x points at restaurants on Citi Nights (Fri/Sat)",
-      "period": "none",
-      "enrollment": false,
-      "details": "Earn 6 ThankYou points per dollar at restaurants on Citi Nights purchases, Friday and Saturday 6 PM-6 AM ET, versus 3x at other times. In San Antonio that's 5 PM-5 AM Central on Friday and Saturday nights. The 1-hour offset holds before and after the Nov 1, 2026 time change because Eastern and Central shift together. This is an earn boost, not a statement credit.",
-      "howToUse": "Pay with the Strata Elite at a restaurant between 17:00 and 05:00 local time on Friday or Saturday night. The window crosses midnight into Saturday and Sunday mornings.",
-      "status": "unconfirmed",
-      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card",
-      "notes": "Also listed under deals as a standing weekly item so the calendar can show the time window.",
-      "verifiedAt": "2026-10-24"
-    },
-    {
       "id": "citi-5-back-on-up-to-500-top-category-spend-per-cycle",
       "card": "citi",
       "cardName": "Citi Custom Cash Card",
@@ -7793,18 +7711,6 @@
           "cap": "Up to $25,000 in purchases per calendar year, then 1X"
         },
         {
-          "rate": "5X",
-          "category": "Prepaid hotels booked through AmexTravel.com or the Amex Travel App (raised from 2X in the April 2026 refresh)"
-        },
-        {
-          "rate": "3X",
-          "category": "Flights booked directly with airlines or through AmexTravel.com / Amex Travel App"
-        },
-        {
-          "rate": "2X",
-          "category": "Prepaid car rentals through AmexTravel.com / Amex Travel App, and cruises booked and paid through AmexTravel.com"
-        },
-        {
           "rate": "1X",
           "category": "All other eligible purchases"
         }
@@ -7819,111 +7725,12 @@
       "annualFee": 895,
       "earn": [
         {
-          "rate": "5X",
-          "category": "Flights booked directly with airlines or through American Express Travel",
-          "cap": "Up to $500,000 per calendar year, then 1X"
-        },
-        {
-          "rate": "5X",
-          "category": "Prepaid hotels booked through American Express Travel"
-        },
-        {
           "rate": "1X",
           "category": "All other purchases, including restaurants, fast food, groceries and food delivery (no food bonus category)"
         }
       ],
       "notes": "Food earns just 1X (no dining or grocery bonus). Amex lists the annual fee as $895 for the Basic Card and $195 for each Additional Platinum Card. Per earlier coverage, existing members pay the $895 from their first renewal on or after Jan 2, 2026.",
       "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
-    },
-    {
-      "id": "capital-one-savor-cash-rewards-credit-card",
-      "card": "capital-one",
-      "name": "Capital One Savor Cash Rewards Credit Card",
-      "annualFee": 0,
-      "earn": [
-        {
-          "rate": "8% cash back",
-          "category": "Capital One Entertainment ticket purchases (entertainment.capitalone.com / Capital One app)",
-          "cap": "Excludes cardholder presales and tickets bought directly from Capital One Hall or Capital One Arena"
-        },
-        {
-          "rate": "5% cash back",
-          "category": "Hotels, vacation rentals and rental cars booked through Capital One Travel"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Dining: restaurants, cafes, bars, lounges, fast-food chains and bakeries"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Grocery stores",
-          "cap": "Excludes superstores like Walmart and Target"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Entertainment (movie theaters, sports/theatrical promoters, amusement parks, zoos, etc.)"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Popular streaming services (e.g., Netflix, Hulu, Disney+)"
-        },
-        {
-          "rate": "1% cash back",
-          "category": "All other purchases"
-        }
-      ],
-      "notes": "No annual fee, no foreign transaction fee, no caps, and no food credits. Unclear whether delivery apps like Uber Eats or DoorDash count as dining; it depends on how the charge is coded.",
-      "sourceUrl": "https://www.capitalone.com/credit-cards/savor/"
-    },
-    {
-      "id": "capital-one-venture-x-rewards-credit-card",
-      "card": "capital-one",
-      "name": "Capital One Venture X Rewards Credit Card",
-      "annualFee": 395,
-      "earn": [
-        {
-          "rate": "10X miles",
-          "category": "Hotels and rental cars booked through Capital One Travel"
-        },
-        {
-          "rate": "5X miles",
-          "category": "Flights and vacation rentals booked through Capital One Travel"
-        },
-        {
-          "rate": "5X miles",
-          "category": "Capital One Entertainment purchases",
-          "cap": "Excludes cardholder presales and tickets bought directly from Capital One Hall or Capital One Arena"
-        },
-        {
-          "rate": "2X miles",
-          "category": "All other purchases, including dining, groceries and food delivery"
-        }
-      ],
-      "notes": "No dining, grocery or delivery bonus and no food credits. Perks are travel: $300 Capital One Travel credit (resets each cardmember year) and 10,000 anniversary miles. Includes access to Capital One Dining reservations.",
-      "sourceUrl": "https://www.capitalone.com/credit-cards/venture-x/"
-    },
-    {
-      "id": "capital-one-venture-rewards-credit-card",
-      "card": "capital-one",
-      "name": "Capital One Venture Rewards Credit Card",
-      "annualFee": 95,
-      "earn": [
-        {
-          "rate": "5X miles",
-          "category": "Hotels, vacation rentals and rental cars booked through Capital One Travel"
-        },
-        {
-          "rate": "5X miles",
-          "category": "Capital One Entertainment purchases",
-          "cap": "Platform tickets only; excludes presales and tickets bought directly from Capital One Hall or Capital One Arena"
-        },
-        {
-          "rate": "2X miles",
-          "category": "Every other purchase, including dining, groceries and food delivery"
-        }
-      ],
-      "notes": "No dining or grocery bonus and no food credits. Offers 50% off handcrafted beverages at Capital One Cafes (one per person, while supplies last), but a San Antonio cafe isn't confirmed.",
-      "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
     },
     {
       "id": "capital-one-quicksilver-cash-rewards-credit-card",
@@ -7936,72 +7743,8 @@
           "category": "Every purchase, including dining, groceries and food delivery"
         }
       ],
-      "notes": "Flat 1.5% with no food categories or credits, and a $0 annual fee. Capital One says Quicksilver cardholders also earn elevated rewards through Capital One Travel and 5% on Capital One Entertainment purchases (not food).",
+      "notes": "Flat 1.5% back on food with no dining category or credits, and a $0 annual fee.",
       "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-quicksilver-vs-venture/"
-    },
-    {
-      "id": "citi-strata-premier-card",
-      "card": "citi",
-      "name": "Citi Strata Premier Card",
-      "annualFee": 95,
-      "earn": [
-        {
-          "rate": "10x ThankYou points",
-          "category": "Hotels, car rentals and attractions booked on cititravel.com"
-        },
-        {
-          "rate": "3x points",
-          "category": "Restaurants"
-        },
-        {
-          "rate": "3x points",
-          "category": "Supermarkets"
-        },
-        {
-          "rate": "3x points",
-          "category": "Gas and EV charging stations"
-        },
-        {
-          "rate": "3x points",
-          "category": "Air travel and other hotel purchases"
-        },
-        {
-          "rate": "1x points",
-          "category": "All other purchases"
-        }
-      ],
-      "notes": "No food credits. Non-food perk: once per calendar year, $100 off a single hotel stay of $500+ (before taxes and fees) booked through cititravel.com or 1-833-737-1288.",
-      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
-    },
-    {
-      "id": "citi-strata-elite-card",
-      "card": "citi",
-      "name": "Citi Strata Elite Card",
-      "annualFee": 595,
-      "earn": [
-        {
-          "rate": "12x ThankYou points",
-          "category": "Hotels, car rentals and attractions booked on cititravel.com"
-        },
-        {
-          "rate": "6x points",
-          "category": "Air travel booked on cititravel.com"
-        },
-        {
-          "rate": "6x points",
-          "category": "Restaurants on Citi Nights: Friday and Saturday, 6 PM-6 AM ET (5 PM-5 AM San Antonio time)"
-        },
-        {
-          "rate": "3x points",
-          "category": "Restaurants at all other times"
-        },
-        {
-          "rate": "1.5x points",
-          "category": "All other purchases"
-        }
-      ],
-      "notes": "The $595 fee comes from third-party reports; Citi's page leaves it blank. None of its credits are for food (hotel, Splurge, Blacklane, Global Entry/TSA PreCheck). Delivery counting as restaurants isn't confirmed.",
-      "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-elite-credit-card"
     },
     {
       "id": "citi-custom-cash-card",
@@ -8023,88 +7766,13 @@
       "sourceUrl": "https://www.doctorofcredit.com/rumor-citi-to-discontinue-custom-cash-card/"
     },
     {
-      "id": "citi-double-cash-card",
+      "id": "citi-simplicity-card",
       "card": "citi",
-      "name": "Citi Double Cash Card",
+      "name": "Citi Simplicity Card",
       "annualFee": 0,
-      "earn": [
-        {
-          "rate": "2% cash back (1% when you buy + 1% when you pay)",
-          "category": "Every purchase, including dining, groceries and food delivery"
-        },
-        {
-          "rate": "5% total cash back (extra 3%)",
-          "category": "Hotels, car rentals and attractions booked through the Citi Travel portal"
-        }
-      ],
-      "notes": "No caps, no category enrollment, no food credits. Citi's page gives no end date for the extra 3% Citi Travel rate. Eligible for Citi Merchant Offers.",
-      "sourceUrl": "https://www.citi.com/credit-cards/citi-double-cash-credit-card"
-    },
-    {
-      "id": "capital-one-savorone-rewards",
-      "card": "capital-one",
-      "name": "Capital One SavorOne Rewards",
-      "annualFee": 39,
-      "earn": [
-        {
-          "rate": "3% cash back",
-          "category": "Dining: restaurants, cafes, bars, lounges, fast-food chains and bakeries"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Grocery stores (excludes superstores like Walmart and Target)"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Entertainment and popular streaming services"
-        },
-        {
-          "rate": "1% cash back",
-          "category": "All other purchases"
-        }
-      ],
-      "notes": "The $39-annual-fee version of Savor. Its page lists no food credits, and whether delivery apps count as dining depends on how the merchant codes the charge.",
-      "sourceUrl": "https://www.capitalone.com/credit-cards/savorone/"
-    },
-    {
-      "id": "capital-one-savor-rewards-for-students",
-      "card": "capital-one",
-      "name": "Capital One Savor Rewards for Students",
-      "annualFee": 0,
-      "earn": [
-        {
-          "rate": "3% cash back",
-          "category": "Dining"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Grocery stores"
-        },
-        {
-          "rate": "3% cash back",
-          "category": "Entertainment and popular streaming services"
-        },
-        {
-          "rate": "1% cash back",
-          "category": "All other purchases"
-        }
-      ],
-      "notes": "Student version of Savor. Capital One's listing shows no food credits.",
-      "sourceUrl": "https://www.capitalone.com/credit-cards/cash-back/savor/"
-    },
-    {
-      "id": "capital-one-ventureone-rewards-credit",
-      "card": "capital-one",
-      "name": "Capital One VentureOne Rewards Credit Card",
-      "annualFee": 0,
-      "earn": [
-        {
-          "rate": "1.25X miles",
-          "category": "Every purchase, including dining, groceries and food delivery"
-        }
-      ],
-      "notes": "No dining or grocery bonus and no food credits.",
-      "sourceUrl": "https://www.capitalone.com/credit-cards/travel-and-miles/"
+      "earn": [],
+      "notes": "Earns no rewards, on food or anything else. Citi Merchant Offers you enroll in through the Citi app can still pay back at restaurants.",
+      "sourceUrl": "https://www.citi.com/credit-cards/citi-simplicity-credit-card"
     }
   ],
   "resources": [

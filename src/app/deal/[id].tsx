@@ -4,8 +4,9 @@ import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useMemo, useState } from 'react';
 import { Alert, Linking, Platform, StyleSheet, View } from 'react-native';
 
+import { confirmMute, countRestaurantDeals } from '@/components/deal-card';
 import { ThemedText } from '@/components/themed-text';
-import { Badge, Button, Card, Divider, EmptyState, Screen, SectionHeader, Segmented, ToggleRow } from '@/components/ui';
+import { Badge, Button, Card, Divider, EmptyState, Screen, SectionHeader, Segmented } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { pad2, toYMD, weekday, type YMD } from '@/lib/dates';
@@ -68,7 +69,7 @@ function DealDetail({ deal }: { deal: Deal }) {
   const theme = useTheme();
   const {
     today,
-    file,
+    deals,
     prefs,
     used,
     permission,
@@ -100,13 +101,12 @@ function DealDetail({ deal }: { deal: Deal }) {
       benefits: [],
       prefs: { ...prefs, weeklyPreview: false, refreshNudge: false },
       used,
-      cards: file.cards,
       now: new Date(),
     })
       .filter((r) => r.dealId === deal.id)
       .slice(0, 3);
     return { reminders, reason: reminders.length ? null : noRemindersReason(deal, prefs, today) };
-  }, [deal, prefs, used, today, file.cards]);
+  }, [deal, prefs, used, today]);
 
   const confirmDelete = () => {
     const run = () => {
@@ -132,7 +132,15 @@ function DealDetail({ deal }: { deal: Deal }) {
     <Screen tabScreen={false}>
       <Stack.Screen options={{ title: deal.restaurant }} />
 
-      {hidden ? (
+      {muted ? (
+        <Card style={{ backgroundColor: theme.backgroundSelected }}>
+          <ThemedText type="smallBold">🔇 {deal.restaurant} is muted</ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            Its deals are hidden everywhere and never send reminders.
+          </ThemedText>
+          <Button label={`Unmute ${deal.restaurant}`} small onPress={() => toggleRestaurantMuted(deal.restaurant)} />
+        </Card>
+      ) : hidden ? (
         <Card style={{ backgroundColor: theme.backgroundSelected }}>
           <ThemedText type="smallBold">Hidden</ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
@@ -208,50 +216,58 @@ function DealDetail({ deal }: { deal: Deal }) {
       ) : null}
 
       <SectionHeader title="Notifications" />
-      <Card>
-        <Segmented
-          options={CHOICES}
-          value={override ?? 'default'}
-          onChange={(v) => setDealOverride(deal.id, v === 'default' ? null : v)}
-        />
-        <ThemedText type="small" themeColor="textSecondary">
-          Default follows your category and restaurant switches — currently{' '}
-          <ThemedText type="smallBold" style={{ color: defaultOn ? theme.success : theme.textSecondary }}>
-            {defaultOn ? 'on' : 'off'}
-          </ThemedText>
-          {offReason ? ` (${offReason})` : ''}.
-          {override ? ` ${override === 'on' ? 'Always' : 'Never'} overrides them for this deal.` : ''}
-        </ThemedText>
-        <Divider />
-        <ToggleRow
-          label={`Mute everything from ${deal.restaurant}`}
-          detail={
-            muted && override === 'on'
-              ? 'This deal still notifies because it’s set to Always.'
-              : 'Applies to every deal from this restaurant.'
-          }
-          value={muted}
-          onValueChange={() => toggleRestaurantMuted(deal.restaurant)}
-        />
-        <Divider />
-        <ThemedText type="smallBold">Next reminders</ThemedText>
-        {plan.reminders.length ? (
-          plan.reminders.map((r) => (
-            <ThemedText key={r.id} type="small">
-              <ThemedText type="smallBold">{reminderWhen(r.fireAt)}</ThemedText> — {r.title}
-            </ThemedText>
-          ))
-        ) : (
+      {muted ? (
+        <Card>
           <ThemedText type="small" themeColor="textSecondary">
-            {plan.reason}
+            Muted restaurants never send reminders. Unmute {deal.restaurant} to choose reminders for this deal.
           </ThemedText>
-        )}
-        {plan.reminders.length && prefs.notificationsEnabled ? (
-          <PermissionNote permission={permission} onAllow={() => requestNotifications().catch(() => undefined)} />
-        ) : null}
-      </Card>
+        </Card>
+      ) : (
+        <Card>
+          <Segmented
+            options={CHOICES}
+            value={override ?? 'default'}
+            onChange={(v) => setDealOverride(deal.id, v === 'default' ? null : v)}
+          />
+          <ThemedText type="small" themeColor="textSecondary">
+            Default follows your Alerts settings — currently{' '}
+            <ThemedText type="smallBold" style={{ color: defaultOn ? theme.success : theme.textSecondary }}>
+              {defaultOn ? 'on' : 'off'}
+            </ThemedText>
+            {offReason ? ` (${offReason})` : ''}.
+            {override ? ` ${override === 'on' ? 'Always' : 'Never'} overrides them for this deal.` : ''}
+          </ThemedText>
+          <Divider />
+          <ThemedText type="smallBold">Next reminders</ThemedText>
+          {plan.reminders.length ? (
+            plan.reminders.map((r) => (
+              <ThemedText key={r.id} type="small">
+                <ThemedText type="smallBold">{reminderWhen(r.fireAt)}</ThemedText> — {r.title}
+              </ThemedText>
+            ))
+          ) : (
+            <ThemedText type="small" themeColor="textSecondary">
+              {plan.reason}
+            </ThemedText>
+          )}
+          {plan.reminders.length && prefs.notificationsEnabled ? (
+            <PermissionNote permission={permission} onAllow={() => requestNotifications().catch(() => undefined)} />
+          ) : null}
+        </Card>
+      )}
 
       <Button label={hidden ? 'Unhide' : 'Hide this deal'} variant="secondary" onPress={() => toggleHidden(deal.id)} />
+      {muted ? null : (
+        <Button
+          label={`Mute ${deal.restaurant}`}
+          variant="secondary"
+          onPress={() =>
+            confirmMute(deal.restaurant, countRestaurantDeals(deals, deal.restaurant, today), () =>
+              toggleRestaurantMuted(deal.restaurant),
+            )
+          }
+        />
+      )}
 
       {deal.custom ? (
         <View style={styles.actions}>
@@ -378,8 +394,8 @@ function reminderWhen(at: Date): string {
 /** Why the Default setting resolves to off; null when it doesn't. */
 function defaultOffReason(deal: Deal, prefs: Prefs): string | null {
   if (prefs.hiddenDeals.includes(deal.id)) return 'it’s hidden';
-  if (!prefs.categories[deal.category]) return `the ${CATEGORY_META[deal.category].label} switch is off`;
   if (isRestaurantMuted(prefs, deal.restaurant)) return `${deal.restaurant} is muted`;
+  if (!prefs.categories[deal.category]) return `the ${CATEGORY_META[deal.category].label} switch is off`;
   if (!prefs.includeUnconfirmed && deal.status === 'unconfirmed') return 'unconfirmed deals are switched off';
   if (dealKind(deal) === 'ongoing') return 'always-on perks don’t send reminders';
   if (dealKind(deal) === 'weekly' && !prefs.weeklyReminders) {
@@ -391,6 +407,7 @@ function defaultOffReason(deal: Deal, prefs: Prefs): string | null {
 function noRemindersReason(deal: Deal, prefs: Prefs, today: YMD): string {
   if (!prefs.notificationsEnabled) return 'Notifications are turned off in Alerts.';
   if (prefs.hiddenDeals.includes(deal.id)) return 'Hidden deals never send reminders.';
+  if (isRestaurantMuted(prefs, deal.restaurant)) return `${deal.restaurant} is muted, so it never sends reminders.`;
   if (!wantsDeal(deal, prefs)) {
     if (prefs.dealOverrides[deal.id] === 'off') return 'This deal is set to Never.';
     const why = defaultOffReason(deal, prefs);

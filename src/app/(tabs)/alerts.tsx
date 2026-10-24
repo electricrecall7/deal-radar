@@ -141,9 +141,9 @@ export default function AlertsScreen() {
 
   const categoryCounts = useMemo(() => {
     const counts = Object.fromEntries(CATEGORIES.map((c) => [c, 0])) as Record<Category, number>;
-    for (const d of liveDeals) counts[d.category]++;
+    for (const d of liveDeals) if (!isRestaurantMuted(prefs, d.restaurant)) counts[d.category]++;
     return counts;
-  }, [liveDeals]);
+  }, [liveDeals, prefs]);
 
   const restaurants = useMemo(() => {
     const byKey = new Map<string, { key: string; name: string; count: number }>();
@@ -161,8 +161,19 @@ export default function AlertsScreen() {
     return q ? restaurants.filter((r) => r.key.includes(q)) : restaurants;
   }, [restaurants, query]);
 
-  const mutedCount = restaurants.filter((r) => isRestaurantMuted(prefs, r.name)).length;
-  const visibleMuted = visible.filter((r) => isRestaurantMuted(prefs, r.name)).length;
+  // Every muted restaurant, including ones with no current deals, so each can always be unmuted here.
+  const muted = useMemo(() => {
+    const names = new Map<string, string>();
+    const counts = new Map<string, number>();
+    for (const d of deals) {
+      const key = restaurantKey(d.restaurant);
+      if (!names.has(key)) names.set(key, d.restaurant.trim());
+      if (!isOver(d, today)) counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    return prefs.mutedRestaurants
+      .map((key) => ({ key, name: names.get(key) ?? titleCase(key), count: counts.get(key) ?? 0 }))
+      .sort((a, b) => compareNames(a.name, b.name));
+  }, [deals, prefs.mutedRestaurants, today]);
 
   const byId = useMemo(() => new Map(deals.map((d) => [d.id, d])), [deals]);
   const overrides = useMemo(() => {
@@ -333,7 +344,47 @@ export default function AlertsScreen() {
         })}
       </Card>
 
-      <SectionHeader title="Restaurants" detail="Mute a place to stop every reminder from it." />
+      <SectionHeader
+        title="Muted restaurants"
+        detail="Their deals are hidden everywhere and never send reminders."
+      />
+      {muted.length ? (
+        <Card>
+          {muted.map((m, i) => (
+            <Fragment key={m.key}>
+              {i > 0 ? <Divider /> : null}
+              <View style={styles.inlineRow}>
+                <View style={styles.fill}>
+                  <ThemedText type="smallBold" numberOfLines={1}>
+                    🔇 {m.name}
+                  </ThemedText>
+                  <ThemedText type="small" themeColor="textSecondary">
+                    {m.count ? `${plural(m.count, 'deal')} hidden` : 'No current deals'}
+                  </ThemedText>
+                </View>
+                <Button small label="Unmute" onPress={() => setRestaurantsMuted([m.name], false)} />
+              </View>
+            </Fragment>
+          ))}
+          {muted.length > 1 ? (
+            <>
+              <Divider />
+              <Button
+                small
+                variant="secondary"
+                label="Unmute all"
+                onPress={() => setRestaurantsMuted(muted.map((m) => m.name), false)}
+              />
+            </>
+          ) : null}
+        </Card>
+      ) : (
+        <ThemedText type="small" themeColor="textSecondary">
+          Nothing muted. Long-press any deal, tap Mute on a deal’s page, or switch a restaurant off below.
+        </ThemedText>
+      )}
+
+      <SectionHeader title="All restaurants" detail="Switch one off to mute it." />
       <TextInput
         value={query}
         onChangeText={setQuery}
@@ -346,39 +397,26 @@ export default function AlertsScreen() {
         accessibilityLabel="Search restaurants"
         style={inputStyle}
       />
-      <View style={styles.inlineRow}>
-        <ThemedText type="small" themeColor="textSecondary" style={styles.fill}>
-          {mutedCount} of {restaurants.length} muted
-          {query.trim() ? ` · ${visible.length} shown` : ''}
-        </ThemedText>
-        <Button
-          small
-          variant="secondary"
-          label="All on"
-          disabled={visibleMuted === 0}
-          onPress={() => setRestaurantsMuted(visible.map((r) => r.name), false)}
-        />
-        <Button
-          small
-          variant="secondary"
-          label="All off"
-          disabled={visible.length === 0 || visibleMuted === visible.length}
-          onPress={() => setRestaurantsMuted(visible.map((r) => r.name), true)}
-        />
-      </View>
+      <ThemedText type="small" themeColor="textSecondary">
+        {plural(restaurants.length, 'restaurant')} with current deals
+        {query.trim() ? ` · ${visible.length} shown` : ''}
+      </ThemedText>
       {visible.length ? (
         <Card>
-          {visible.map((r, i) => (
-            <Fragment key={r.key}>
-              {i > 0 ? <Divider /> : null}
-              <ToggleRow
-                label={r.name}
-                detail={plural(r.count, 'deal')}
-                value={!isRestaurantMuted(prefs, r.name)}
-                onValueChange={() => toggleRestaurantMuted(r.name)}
-              />
-            </Fragment>
-          ))}
+          {visible.map((r, i) => {
+            const isMuted = isRestaurantMuted(prefs, r.name);
+            return (
+              <Fragment key={r.key}>
+                {i > 0 ? <Divider /> : null}
+                <ToggleRow
+                  label={r.name}
+                  detail={isMuted ? `Muted · ${plural(r.count, 'deal')} hidden` : plural(r.count, 'deal')}
+                  value={!isMuted}
+                  onValueChange={() => toggleRestaurantMuted(r.name)}
+                />
+              </Fragment>
+            );
+          })}
         </Card>
       ) : (
         <EmptyState
@@ -517,6 +555,9 @@ export default function AlertsScreen() {
 }
 
 const compareNames = (a: string, b: string) => a.localeCompare(b, undefined, { sensitivity: 'base' });
+
+/** "raising cane's" -> "Raising Cane's", for a muted restaurant that no longer has deals to borrow a name from. */
+const titleCase = (key: string) => key.replace(/(^|\s)\S/g, (c) => c.toUpperCase());
 
 function byRestaurant(a: Deal, b: Deal): number {
   return compareNames(a.restaurant, b.restaurant) || compareNames(a.title, b.title);

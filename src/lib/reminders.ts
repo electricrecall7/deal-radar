@@ -1,7 +1,6 @@
 // Turns deals, card credits and preferences into the list of local
 // notifications to schedule. Pure: no Expo imports, so it is unit-tested.
 import { upcomingPeriods, type UsedCredits } from './benefits';
-import { benefitAppliesToUser } from './card-variants';
 import {
   addDays,
   atTime,
@@ -17,7 +16,8 @@ import { formatShortDate, formatTime, WEEKDAYS_LONG, WEEKDAYS_SHORT } from './fo
 import { CARD_META, CHANNEL_LABEL } from './meta';
 import { dealKind, isCalendarDay, isOneDay, occursOn, spanDays } from './occurrences';
 import { dealNotifies, wantsBenefit, wantsDeal, type Prefs } from './prefs';
-import type { Benefit, CardInfo, Deal } from './schema';
+import type { Benefit, Deal } from './schema';
+import { isHeldBenefit } from './wallet';
 
 export type ReminderKind =
   | 'today'
@@ -47,8 +47,6 @@ export interface PlanInput {
   benefits: Benefit[];
   prefs: Prefs;
   used: UsedCredits;
-  /** Card variants from deals.json; when given, credits for variants the user doesn't hold are skipped. */
-  cards?: CardInfo[];
   now: Date;
   horizonDays?: number;
   max?: number;
@@ -205,8 +203,7 @@ export function planReminders(input: PlanInput): Reminder[] {
     }
   }
 
-  const held = input.cards ? benefits.filter((b) => benefitAppliesToUser(b, input.cards!, prefs.cardVariants)) : benefits;
-  out.push(...creditReminders(held, prefs, used, today, horizon));
+  out.push(...creditReminders(benefits.filter(isHeldBenefit), prefs, used, today, horizon));
 
   if (prefs.weeklyPreview) {
     for (let sunday = nextWeekday(today, 0); diffDays(today, sunday) <= horizon; sunday = addDays(sunday, 7)) {

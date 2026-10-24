@@ -11,7 +11,7 @@ import {
   planReminders,
   type Reminder,
 } from '../src/lib/reminders';
-import type { Benefit, CardInfo, Deal } from '../src/lib/schema';
+import type { Benefit, Deal } from '../src/lib/schema';
 
 // The phone lives in San Antonio; pin the zone so the Nov 1 DST change is exercised on any machine.
 process.env.TZ = 'America/Chicago';
@@ -53,7 +53,6 @@ interface Options {
   benefits?: Benefit[];
   prefs?: Partial<Prefs>;
   used?: UsedCredits;
-  cards?: CardInfo[];
   now?: Date;
   horizonDays?: number;
   max?: number;
@@ -404,10 +403,10 @@ describe('planReminders: filters', () => {
     assert.deepEqual(plan({ deals: [tacoTuesday], prefs: { hiddenDeals: ['tb-tue'] } }), []);
   });
 
-  it('ignores muted restaurants unless the deal is switched on by hand', () => {
+  it('ignores muted restaurants, even for a deal switched to Always', () => {
     assert.deepEqual(plan({ deals: [tacoTuesday], prefs: { mutedRestaurants: ['taco bell'] } }), []);
-    const revived = { mutedRestaurants: ['taco bell'], dealOverrides: { 'tb-tue': 'on' as const } };
-    assert.ok(plan({ deals: [tacoTuesday], prefs: revived }).length > 0);
+    const always = { mutedRestaurants: ['taco bell'], dealOverrides: { 'tb-tue': 'on' as const } };
+    assert.deepEqual(plan({ deals: [tacoTuesday], prefs: always }), []);
   });
 
   it('ignores categories that are switched off', () => {
@@ -684,7 +683,6 @@ describe('planReminders: default policy', () => {
       benefits: o.benefits ?? [],
       prefs: { ...DEFAULT_PREFS, weeklyPreview: false, refreshNudge: false, ...o.prefs },
       used: o.used ?? {},
-      cards: o.cards,
       now: o.now ?? NOW,
       horizonDays: o.horizonDays,
     });
@@ -723,18 +721,13 @@ describe('planReminders: default policy', () => {
     assert.match(rs[0].body, /^Tue: Taco Bell$/m);
   });
 
-  it('skips credits for a card variant the user does not hold', () => {
-    const savorOnly = benefit({ id: 'savor-credit', card: 'capital-one', cardName: 'Capital One Savor', title: '$10 credit' });
-    const cards = [
-      { id: 'savor', card: 'capital-one' as const, name: 'Capital One Savor', earn: [] },
-      { id: 'venture-x', card: 'capital-one' as const, name: 'Capital One Venture X', earn: [] },
-    ];
-    const held = (variant: string) =>
-      defaults({ benefits: [savorOnly], cards, prefs: { cardVariants: { 'capital-one': variant } } });
-    assert.ok(held('savor').length > 0);
-    assert.deepEqual(held('venture-x'), []);
-    // Without the card list the planner can't tell, so it reminds.
-    assert.ok(defaults({ benefits: [savorOnly] }).length > 0);
+  it('skips credits for cards the user does not hold', () => {
+    const credit = (cardName?: string) =>
+      defaults({ benefits: [benefit({ id: 'c1', card: 'capital-one', cardName, title: '$10 credit' })] });
+    assert.deepEqual(credit('Capital One Savor'), []);
+    assert.ok(credit('Capital One Quicksilver').length > 0);
+    // No cardName: it comes with every Capital One card, Quicksilver included.
+    assert.ok(credit(undefined).length > 0);
   });
 
   it('keeps a credit warning inside the horizon even when the reset itself is past it', () => {

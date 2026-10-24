@@ -120,11 +120,13 @@ export function SectionHeader({ title, detail, action }: { title: string; detail
 export function Card({
   children,
   onPress,
+  onLongPress,
   style,
   accent,
 }: {
   children: ReactNode;
   onPress?: () => void;
+  onLongPress?: () => void;
   style?: StyleProp<ViewStyle>;
   /** Color bar on the left edge. */
   accent?: string;
@@ -143,7 +145,11 @@ export function Card({
   );
   if (!onPress) return body;
   return (
-    <Pressable onPress={onPress} style={({ pressed }) => pressed && styles.pressed} accessibilityRole="button">
+    <Pressable
+      onPress={onPress}
+      onLongPress={onLongPress}
+      style={({ pressed }) => pressed && styles.pressed}
+      accessibilityRole="button">
       {body}
     </Pressable>
   );

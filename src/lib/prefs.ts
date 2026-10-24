@@ -1,4 +1,4 @@
-import type { Benefit, CardId, Category, Deal } from './schema';
+import type { Benefit, Category, Deal } from './schema';
 
 /** Where the weekly GitHub Action publishes data/deals.json. Editable in Alerts > Data. */
 export const DEFAULT_DEALS_URL =
@@ -27,14 +27,12 @@ export interface Prefs {
   weeklyReminders: boolean;
   includeUnconfirmed: boolean;
   categories: Record<Category, boolean>;
-  /** restaurantKey() values that never notify (unless a deal is turned on by hand). */
+  /** restaurantKey() values whose deals are hidden everywhere and never notify. */
   mutedRestaurants: string[];
   /** Per-deal choice that beats the restaurant and category switches. */
   dealOverrides: Record<string, Override>;
   mutedBenefits: string[];
   hiddenDeals: string[];
-  /** Which CardInfo.id the user holds for each issuer. */
-  cardVariants: Partial<Record<CardId, string>>;
   dataUrl: string;
 }
 
@@ -53,18 +51,18 @@ export const DEFAULT_PREFS: Prefs = {
   dealOverrides: {},
   mutedBenefits: [],
   hiddenDeals: [],
-  cardVariants: {},
   dataUrl: DEFAULT_DEALS_URL,
 };
 
-/** Fill in fields added after the user's prefs were saved. */
+/** Fill in fields added after the user's prefs were saved, and drop retired ones. */
 export function withDefaults(stored: Partial<Prefs> | null | undefined): Prefs {
+  // cardVariants (one card picked per issuer) was replaced by the fixed list in wallet.ts.
+  const { cardVariants: _retired, ...rest } = (stored ?? {}) as Partial<Prefs> & { cardVariants?: unknown };
   return {
     ...DEFAULT_PREFS,
-    ...stored,
+    ...rest,
     categories: { ...DEFAULT_PREFS.categories, ...stored?.categories },
     dealOverrides: { ...stored?.dealOverrides },
-    cardVariants: { ...stored?.cardVariants },
     mutedRestaurants: [...(stored?.mutedRestaurants ?? [])],
     mutedBenefits: [...(stored?.mutedBenefits ?? [])],
     hiddenDeals: [...(stored?.hiddenDeals ?? [])],
@@ -79,16 +77,20 @@ export function isRestaurantMuted(prefs: Prefs, restaurant: string): boolean {
   return prefs.mutedRestaurants.includes(restaurantKey(restaurant));
 }
 
+/** Hidden by hand, or from a muted restaurant: left out of every list and never notifies. */
+export function isDealHidden(deal: Deal, prefs: Prefs): boolean {
+  return prefs.hiddenDeals.includes(deal.id) || isRestaurantMuted(prefs, deal.restaurant);
+}
+
 /**
  * Should this deal send notifications? Most specific setting wins:
- * hidden > per-deal switch > category / restaurant / unconfirmed filters.
+ * hidden or muted restaurant > per-deal switch > category / unconfirmed filters.
  */
 export function wantsDeal(deal: Deal, prefs: Prefs): boolean {
-  if (prefs.hiddenDeals.includes(deal.id)) return false;
+  if (isDealHidden(deal, prefs)) return false;
   const override = prefs.dealOverrides[deal.id];
   if (override) return override === 'on';
   if (!prefs.categories[deal.category]) return false;
-  if (isRestaurantMuted(prefs, deal.restaurant)) return false;
   if (!prefs.includeUnconfirmed && deal.status === 'unconfirmed') return false;
   return true;
 }

@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { parseDealsFile, type Deal, type DealsFile } from '../src/lib/schema';
+import { isHeldBenefit, isHeldCard } from '../src/lib/wallet';
 import { createResearcher, type Outcome, type Researcher, type SubmitRequest } from './updater/claude';
 import { checkClaudeCodePlan, createClaudeCodeResearcher } from './updater/claude-code';
 import { buildCodeWatchlist, CODES_ANGLE, promoCodeAngles } from './updater/codes';
@@ -499,8 +500,9 @@ async function main(): Promise<number> {
     file,
     {
       deals: [...cleaned.kept, ...newDeals],
-      benefits: reviewed?.benefits.items ?? file.benefits,
-      cards: reviewed?.cards.items ?? file.cards,
+      // Only the user's own cards (src/lib/wallet.ts), whatever the review added.
+      benefits: (reviewed?.benefits.items ?? file.benefits).filter(isHeldBenefit),
+      cards: (reviewed?.cards.items ?? file.cards).filter(isHeldCard),
     },
     new Date(),
   );

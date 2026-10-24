@@ -1,7 +1,8 @@
 # Deal Radar
 
 A personal phone app for San Antonio food deals: fast-food app offers, promo codes, free-food giveaways,
-and the food perks on Amex Gold, Amex Platinum, Capital One and Citi cards. It shows a month calendar and
+and the food perks on your own cards: Amex Gold, Amex Platinum, Capital One Quicksilver, Citi Custom Cash and
+Citi Simplicity (the list lives in `src/lib/wallet.ts`; other cards are dropped). It shows a month calendar and
 a weekly schedule, and it sends reminders you control per category, restaurant, and deal. When you run
 **Search deals** on your PC, Claude (through your Claude plan) re-checks every deal, drops dead ones, searches
 for new deals and promo codes, and uploads the new list once you approve it.
@@ -10,14 +11,15 @@ for new deals and promo codes, and uploads the new list once you approve it.
 
 | Tab | What it shows |
 | --- | --- |
-| **Today** | Deals ending soon, card credits about to reset, what's on today, the next 7 days, new finds, and always-on sign-up and birthday perks. Pull down to check for new deals. |
+| **Today** | Deals ending soon, card credits about to reset, what's on today, promo codes you can use now, the next 7 days, new finds, and always-on sign-up and birthday perks. Pull down to check for new deals. |
 | **Calendar** | A month grid with colored dots per deal category and 💳 on days card credits reset. Tap a day to see its deals. |
 | **Weekly** | Standing weekly specials (Taco Tuesday and so on), starting with today. |
-| **Cards** | Each card's food earn rates, monthly, quarterly and yearly credits with a "used" switch, and card-linked offers. **Add an offer** saves a targeted offer from your Amex, Capital One or Citi app so you get expiry reminders. |
-| **Alerts** | Reminder timing, category switches, a per-restaurant mute list, your per-deal choices, the data source, and a list of every reminder queued on the phone. |
+| **Cards** | Your five cards' food earn rates, monthly, quarterly and yearly credits with a "used" switch, and card-linked offers. **Add an offer** saves a targeted offer from your Amex, Capital One or Citi app so you get expiry reminders. |
+| **Alerts** | Reminder timing, category switches, muted restaurants (with Unmute), your per-deal choices, the data source, and a list of every reminder queued on the phone. |
 
 Each deal page has **Default / Always / Never** for that deal's notifications, a copy button for promo codes,
-the source link, and a **Hide** button.
+the source link, a **Hide** button, and **Mute** for its restaurant. Muting hides every deal from that place
+everywhere and stops its reminders; long-press any deal in a list for the same Hide and Mute choices.
 
 ### How reminders work
 

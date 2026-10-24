@@ -5,15 +5,16 @@ import { StyleSheet, View } from 'react-native';
 import { BenefitRow, SourceLink } from '@/components/benefit-row';
 import { DealCard } from '@/components/deal-card';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Chip, ChipRow, Divider, Screen } from '@/components/ui';
+import { Button, Card, Divider, Screen } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { benefitDaysLeft, isBenefitUsed } from '@/lib/benefits';
-import { benefitAppliesTo, selectedVariant, shortVariantName } from '@/lib/card-variants';
 import { money } from '@/lib/format';
 import { CARD_META } from '@/lib/meta';
 import { compareDeals, isOver } from '@/lib/occurrences';
+import { isDealHidden } from '@/lib/prefs';
 import { CARD_IDS, type Benefit, type CardId, type CardInfo, type Deal, type Period } from '@/lib/schema';
+import { MY_CARDS, namesHeldCard, shortCardName, type HeldCard } from '@/lib/wallet';
 import { useAppState } from '@/state/app-state';
 
 /** Credits resetting within this many days count toward the summary's heads-up line. */
@@ -24,18 +25,25 @@ const AMEX_TIP = 'Amex Offers are targeted: save the ones you add in the Amex ap
 const TIPS: Record<CardId, string> = {
   'amex-gold': AMEX_TIP,
   'amex-platinum': AMEX_TIP,
-  'capital-one': 'Check Capital One Offers and Capital One Dining in the app.',
+  'capital-one': 'Check Capital One Offers in the Capital One app for restaurant and delivery cash back.',
   citi: 'Citi Merchant Offers are targeted and must be enrolled before you pay.',
 };
 
 // Monthly credits first (the ones most likely to lapse), standing perks last.
 const PERIOD_ORDER: Record<Period, number> = { monthly: 0, quarterly: 1, semiannual: 2, annual: 3, none: 4 };
 
+interface HeldCardView {
+  held: HeldCard;
+  /** Earn rates and fee from deals.json, once the deal search has filled them in. */
+  info?: CardInfo;
+  benefits: Benefit[];
+}
+
 interface Issuer {
   card: CardId;
-  variants: CardInfo[];
-  variant?: CardInfo;
-  benefits: Benefit[];
+  cards: HeldCardView[];
+  /** With two cards from one issuer: benefits that come with both. */
+  shared: Benefit[];
   offers: Deal[];
 }
 
@@ -54,33 +62,44 @@ function byEndDate(a: Deal, b: Deal): number {
   return compareDeals(a, b);
 }
 
+const byPeriod = (list: Benefit[]) => [...list].sort((a, b) => PERIOD_ORDER[a.period] - PERIOD_ORDER[b.period]);
+
 const cents = (n: number) => Math.round(n * 100) / 100;
 
 export default function CardsScreen() {
-  const { file, deals, prefs, used, today, updatePrefs, refresh, syncing } = useAppState();
+  const { file, deals, prefs, used, today, refresh, syncing } = useAppState();
 
-  const issuers = useMemo<Issuer[]>(() => {
-    const hidden = new Set(prefs.hiddenDeals);
-    return CARD_IDS.map((card) => {
-      const variants = file.cards.filter((c) => c.card === card);
-      const variant = selectedVariant(variants, prefs.cardVariants[card]);
-      const benefits = file.benefits
-        .filter((b) => b.card === card && benefitAppliesTo(b, variant))
-        .sort((a, b) => PERIOD_ORDER[a.period] - PERIOD_ORDER[b.period]);
-      const offers = deals
-        .filter((d) => d.category === 'card' && d.card === card && !hidden.has(d.id) && !isOver(d, today))
-        .sort(byEndDate);
-      return { card, variants, variant, benefits, offers };
-    });
-  }, [file, deals, prefs.hiddenDeals, prefs.cardVariants, today]);
+  // file only has the user's own cards and their benefits (see wallet.ts).
+  const issuers = useMemo<Issuer[]>(
+    () =>
+      CARD_IDS.map((card) => {
+        const mine = MY_CARDS.filter((h) => h.card === card);
+        const benefits = file.benefits.filter((b) => b.card === card);
+        const several = mine.length > 1;
+        // With one card from an issuer every benefit is that card's; with two, ones naming a card go under it.
+        const belongsTo = (b: Benefit, held: HeldCard) =>
+          several ? !!b.cardName && namesHeldCard(held, card, b.cardName) : true;
+        const cards = mine.map((held) => ({
+          held,
+          info: file.cards.find((c) => namesHeldCard(held, c.card, c.name)),
+          benefits: byPeriod(benefits.filter((b) => belongsTo(b, held))),
+        }));
+        const shared = several ? byPeriod(benefits.filter((b) => !b.cardName?.trim())) : [];
+        const offers = deals
+          .filter((d) => d.category === 'card' && d.card === card && !isDealHidden(d, prefs) && !isOver(d, today))
+          .sort(byEndDate);
+        return { card, cards, shared, offers };
+      }),
+    [file, deals, prefs, today],
+  );
 
   const summary = useMemo(() => {
     const byCard: Partial<Record<CardId, MonthlyTotals>> = {};
     let left = 0;
     let total = 0;
     let resetting = 0;
-    for (const { card, benefits } of issuers) {
-      for (const b of benefits) {
+    for (const { card, cards, shared } of issuers) {
+      for (const b of [...cards.flatMap((c) => c.benefits), ...shared]) {
         if (b.period === 'none') continue;
         const isUsed = isBenefitUsed(b, used, today);
         if (b.period === 'monthly' && b.amount) {
@@ -99,19 +118,11 @@ export default function CardsScreen() {
     return { left: cents(left), total: cents(total), resetting, byCard };
   }, [issuers, used, today]);
 
-  const chooseVariant = (card: CardId, id: string) =>
-    updatePrefs((p) => ({ ...p, cardVariants: { ...p.cardVariants, [card]: id } }));
-
   return (
     <Screen title="Cards" subtitle="Credits, earn rates and card offers" onRefresh={refresh} refreshing={syncing}>
       <Summary left={summary.left} total={summary.total} resetting={summary.resetting} />
       {issuers.map((issuer) => (
-        <IssuerSection
-          key={issuer.card}
-          issuer={issuer}
-          monthly={summary.byCard[issuer.card]}
-          onChooseVariant={chooseVariant}
-        />
+        <IssuerSection key={issuer.card} issuer={issuer} monthly={summary.byCard[issuer.card]} />
       ))}
     </Screen>
   );
@@ -152,18 +163,14 @@ function Summary({ left, total, resetting }: { left: number; total: number; rese
   );
 }
 
-function IssuerSection({
-  issuer,
-  monthly,
-  onChooseVariant,
-}: {
-  issuer: Issuer;
-  monthly?: MonthlyTotals;
-  onChooseVariant: (card: CardId, id: string) => void;
-}) {
+function IssuerSection({ issuer, monthly }: { issuer: Issuer; monthly?: MonthlyTotals }) {
   const theme = useTheme();
-  const { card, variants, variant, benefits, offers } = issuer;
+  const { card, cards, shared, offers } = issuer;
   const meta = CARD_META[card];
+  const several = cards.length > 1;
+  const subtitle = several
+    ? cards.map((c) => shortCardName(c.held.name)).join(' + ')
+    : (cards[0]?.info?.name ?? cards[0]?.held.name);
 
   return (
     <View style={styles.section}>
@@ -173,9 +180,9 @@ function IssuerSection({
           <ThemedText type="heading" accessibilityRole="header">
             {meta.name}
           </ThemedText>
-          {variant ? (
+          {subtitle ? (
             <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
-              {variant.name}
+              {subtitle}
             </ThemedText>
           ) : null}
         </View>
@@ -186,44 +193,27 @@ function IssuerSection({
         ) : null}
       </View>
 
-      {variant ? (
-        <Card>
-          {variants.length > 1 ? (
-            <ChipRow>
-              {variants.map((v) => (
-                <Chip
-                  key={v.id}
-                  label={shortVariantName(v.name)}
-                  selected={v.id === variant.id}
-                  color={meta.color}
-                  onPress={() => onChooseVariant(card, v.id)}
-                />
-              ))}
-            </ChipRow>
-          ) : null}
-          <VariantInfo variant={variant} />
-        </Card>
-      ) : null}
-
-      {benefits.length > 0 ? (
-        <>
-          <GroupLabel>Credits & perks</GroupLabel>
+      {cards.map(({ held, info, benefits }) => (
+        <Fragment key={held.name}>
           <Card>
-            {benefits.map((b, i) => (
-              <Fragment key={b.id}>
-                {i > 0 ? <Divider /> : null}
-                <BenefitRow benefit={b} />
-              </Fragment>
-            ))}
+            {several ? <ThemedText type="smallBold">{info?.name ?? held.name}</ThemedText> : null}
+            {info ? (
+              <CardDetails info={info} />
+            ) : (
+              <ThemedText type="small" themeColor="textSecondary">
+                No details for this card yet. The next deal search fills them in.
+              </ThemedText>
+            )}
           </Card>
-        </>
-      ) : null}
-
-      {!variant && benefits.length === 0 ? (
-        <ThemedText type="small" themeColor="textSecondary">
-          No card details yet. The weekly update fills these in.
-        </ThemedText>
-      ) : null}
+          {benefits.length > 0 ? (
+            <BenefitList
+              label={several ? `${shortCardName(held.name)} credits & perks` : 'Credits & perks'}
+              benefits={benefits}
+            />
+          ) : null}
+        </Fragment>
+      ))}
+      {shared.length > 0 ? <BenefitList label={`Every ${meta.name} card`} benefits={shared} /> : null}
 
       {offers.length > 0 ? (
         <>
@@ -246,13 +236,29 @@ function IssuerSection({
   );
 }
 
-function VariantInfo({ variant }: { variant: CardInfo }) {
+function BenefitList({ label, benefits }: { label: string; benefits: Benefit[] }) {
+  return (
+    <>
+      <GroupLabel>{label}</GroupLabel>
+      <Card>
+        {benefits.map((b, i) => (
+          <Fragment key={b.id}>
+            {i > 0 ? <Divider /> : null}
+            <BenefitRow benefit={b} />
+          </Fragment>
+        ))}
+      </Card>
+    </>
+  );
+}
+
+function CardDetails({ info }: { info: CardInfo }) {
   const fee =
-    variant.annualFee === undefined
+    info.annualFee === undefined
       ? ''
-      : variant.annualFee === 0
+      : info.annualFee === 0
         ? 'No annual fee'
-        : `${money(variant.annualFee)} annual fee`;
+        : `${money(info.annualFee)} annual fee`;
 
   return (
     <>
@@ -261,9 +267,9 @@ function VariantInfo({ variant }: { variant: CardInfo }) {
           {fee}
         </ThemedText>
       ) : null}
-      {variant.earn.length > 0 ? (
+      {info.earn.length > 0 ? (
         <View style={styles.earnList}>
-          {variant.earn.map((e, i) => (
+          {info.earn.map((e, i) => (
             <View key={`${i}-${e.category}`} style={styles.earnRow}>
               <ThemedText type="smallBold" style={styles.rate}>
                 {e.rate}
@@ -280,12 +286,12 @@ function VariantInfo({ variant }: { variant: CardInfo }) {
           ))}
         </View>
       ) : null}
-      {variant.notes ? (
+      {info.notes ? (
         <ThemedText type="small" themeColor="textSecondary">
-          {variant.notes}
+          {info.notes}
         </ThemedText>
       ) : null}
-      {variant.sourceUrl ? <SourceLink url={variant.sourceUrl} label="Card details" /> : null}
+      {info.sourceUrl ? <SourceLink url={info.sourceUrl} label="Card details" /> : null}
     </>
   );
 }
