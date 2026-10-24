@@ -1,0 +1,5 @@
+# LF everywhere, so Windows clones don't flip line endings (and warn) on every deal update.
+* text=auto eol=lf
+# Windows scripts need CRLF line endings when checked out.
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

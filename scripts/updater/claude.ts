@@ -103,6 +103,8 @@ export type Outcome<T> = { ok: true; value: T } | { ok: false; reason: string; d
 
 export interface Researcher {
   usage: UsageTotals;
+  /** Why the run stopped early, e.g. a Claude plan usage limit; shown in the summary. */
+  notice?: string;
   submit<T>(request: SubmitRequest<T>): Promise<Outcome<T>>;
 }
 

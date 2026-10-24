@@ -1,27 +1,27 @@
-# Weekly deal search. Two runs a week, each with its own time budget:
-#   Monday   - re-verify data/deals.json, drop ended deals, search for new San Antonio deals and
-#              re-check card benefits.
-#   Thursday - search for promo codes at every restaurant in data/code-watchlist.json (plus any
-#              restaurant with 2+ deals), double-check them, and add the ones that hold up.
+# Deal search on GitHub, billed to an API key. Runs only when started by hand from the Actions tab:
+# the regular searches now run on your own PC with your Claude plan ("Search deals.cmd").
+#   deals - re-verify data/deals.json, drop ended deals, search for new San Antonio deals and
+#           re-check card benefits.
+#   codes - search for promo codes at every restaurant in data/code-watchlist.json (plus any
+#           restaurant with 2+ deals), double-check them, and add the ones that hold up.
 # Each run commits data/deals.json and data/last-run.json when something changed.
 #
 # Required secret: ANTHROPIC_API_KEY, a Claude API key from https://platform.claude.com.
-# Add it under Settings > Secrets and variables > Actions > New repository secret.
-# Optional repository variables (same page, Variables tab): DEAL_MODEL (default claude-opus-5-5) and
+# Optional repository variables: DEAL_MODEL (default claude-opus-5-5) and
 # DEAL_EFFORT (low | medium | high | xhigh | max, default high).
-# To preview without spending anything, run it from the Actions tab with mode "dry-run".
+# To bring back the automatic Monday/Thursday runs, add under "on:":
+#   schedule:
+#     - cron: '0 10 * * 1'
+#     - cron: '0 10 * * 4'
+# and set MODE below back to: inputs.mode || (github.event.schedule == '0 10 * * 4' && 'codes' || 'deals')
 
-name: Weekly deal search
+name: Deal search (API)
 
 on:
-  schedule:
-    # 10:00 UTC = 5 AM CDT / 4 AM CST, before the app's 10 AM Monday nudge.
-    - cron: '0 10 * * 1'
-    - cron: '0 10 * * 4'
   workflow_dispatch:
     inputs:
       mode:
-        description: 'deals = Monday run, codes = Thursday promo-code run, dry-run = preview only'
+        description: 'deals = full deal check, codes = promo-code sweep, dry-run = preview only'
         type: choice
         options: [deals, codes, dry-run]
         default: deals
@@ -56,7 +56,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DEAL_MODEL: ${{ vars.DEAL_MODEL }}
           DEAL_EFFORT: ${{ vars.DEAL_EFFORT }}
-          MODE: ${{ inputs.mode || (github.event.schedule == '0 10 * * 4' && 'codes' || 'deals') }}
+          MODE: ${{ inputs.mode }}
         run: |
           case "$MODE" in
             dry-run) npx tsx scripts/update-deals.ts --dry-run ;;

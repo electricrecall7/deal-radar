@@ -24,6 +24,10 @@ export interface AddedDeal {
 export interface RunSummary {
   ranAt: string;
   today: string;
+  /** api: billed to an API key; claude-code: the Claude Code CLI on the person's own Claude plan. */
+  engine: 'api' | 'claude-code';
+  /** Why the run stopped early, if it did (e.g. a Claude plan usage limit). */
+  notice?: string;
   model: string;
   effort: string;
   durationMinutes: number;
@@ -88,20 +92,22 @@ function section(title: string, lines: string[], limit = 25): string[] {
 export function formatSummary(s: RunSummary): string {
   const c = s.counts;
   const u = s.usage;
-  const cost = u.estimatedSearchCostUsd.toFixed(2);
+  const plan = s.engine === 'claude-code';
+  const cost = plan ? '' : ` (~$${u.estimatedSearchCostUsd.toFixed(2)})`;
   const floor = u.incompleteRequests ? ` (${u.incompleteRequests} cut short, so usage is a floor)` : '';
+  const how = plan ? `Claude Code on your Claude plan, model ${s.model}` : `${s.model}, effort ${s.effort}`;
   return [
-    `Deal update for ${s.today}: ${c.dealsBefore} -> ${c.dealsAfter} deals in ${s.durationMinutes} min ` +
-      `(${s.model}, effort ${s.effort})`,
+    `Deal update for ${s.today}: ${c.dealsBefore} -> ${c.dealsAfter} deals in ${s.durationMinutes} min (${how})`,
+    ...(s.notice ? [`  STOPPED EARLY: ${s.notice}. The deals it didn't reach go first next time.`] : []),
     `  verified ${c.verified} of ${c.verifyDue} due (${c.reconfirmed} confirmed, ` +
       `${c.verifySkippedFresh} checked recently), updated ${c.updated}, ` +
       `removed ${c.removed} + ${c.ended} ended + ${c.duplicatesRemoved} duplicates`,
     `  new finds ${c.candidates}: ${c.added} added, ${c.duplicates} duplicates, ${c.rejected} rejected`,
     `  benefits changed ${c.benefitsChanged}, cards changed ${c.cardsChanged}`,
     `  requests ${c.requestsSucceeded} ok / ${c.requestsFailed} failed / ${c.requestsDeferred} deferred; ` +
-      `API calls ${u.requests}${floor}, ` +
+      `${plan ? 'Claude Code runs' : 'API calls'} ${u.requests}${floor}, ` +
       `tokens ${u.inputTokens} in (+${u.cacheReadTokens} cached) / ${u.outputTokens} out, ` +
-      `${u.webSearches} searches (~$${cost}), ${u.webFetches} fetches`,
+      `${u.webSearches} searches${cost}, ${u.webFetches} fetches`,
     ...section(
       'Added',
       s.added.map((a) => `${a.restaurant}: ${a.title} [${span(a)}] ${a.status}, ${a.angle}`),
@@ -112,6 +118,6 @@ export function formatSummary(s: RunSummary): string {
     ...section('Benefits and cards', [...s.benefits.changes, ...s.cards.changes].map(fieldsOf)),
     ...section('Not applied', [...s.problems, ...s.benefits.ignored, ...s.cards.ignored]),
     ...section('Failed requests', s.failures.map((f) => `${f.label}: ${f.reason}`)),
-    ...section('Deferred to the next run (time budget)', s.deferred),
+    ...section(s.notice ? 'Deferred to the next run' : 'Deferred to the next run (time budget)', s.deferred),
   ].join('\n');
 }

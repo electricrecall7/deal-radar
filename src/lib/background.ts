@@ -1,5 +1,5 @@
 // Best-effort background refresh. The OS decides when (often overnight), so the
-// Monday "this week's deals are in" reminder is the reliable fallback.
+// "time for your weekly deal search" reminder is the reliable fallback.
 import * as BackgroundTask from 'expo-background-task';
 import * as TaskManager from 'expo-task-manager';
 import { Platform } from 'react-native';

@@ -576,7 +576,7 @@ describe('planReminders: refresh nudge', () => {
       'refresh 2026-11-09 10:00',
     ]);
     assert.equal(rs[0].id, 'refresh:2026-10-26');
-    assert.equal(rs[0].title, 'This week’s deals are in');
+    assert.equal(rs[0].title, 'Time for your weekly deal search');
   });
 
   it('is off when refreshNudge is false', () => {

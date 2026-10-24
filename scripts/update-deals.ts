@@ -8,6 +8,7 @@ import path from 'node:path';
 
 import { parseDealsFile, type Deal, type DealsFile } from '../src/lib/schema';
 import { createResearcher, type Outcome, type Researcher, type SubmitRequest } from './updater/claude';
+import { checkClaudeCodePlan, createClaudeCodeResearcher } from './updater/claude-code';
 import { buildCodeWatchlist, CODES_ANGLE, promoCodeAngles } from './updater/codes';
 import {
   BENEFITS_FETCHES,
@@ -348,18 +349,29 @@ function dryRun({ opts, file, dropped, kept, ended, toVerify, fresh, angles, wat
   }
   if (benefits) log(`Would re-check ${file.benefits.length} benefits and ${file.cards.length} cards.`);
   else log('Would skip benefits.');
-  const cost = searchCost(searches).toFixed(2);
-  log(
-    `Budget: up to ${requests} requests (${opts.model}, effort ${opts.effort}), ` +
-      `up to ${searches} web searches (~$${cost}) and ${fetches} fetches, plus tokens.`,
-  );
+  if (opts.engine === 'claude-code') {
+    const plan = checkClaudeCodePlan();
+    log(
+      `Budget: up to ${requests} Claude Code runs on your Claude plan (model ${opts.model}), about ${searches} ` +
+        `searches and ${fetches} fetches. No API bill; your plan's usage limits apply.`,
+    );
+    log(plan.ok ? `Claude Code is signed in with your plan (${plan.method}).` : `Claude Code isn't ready: ${plan.problem}.`);
+  } else {
+    const cost = searchCost(searches).toFixed(2);
+    log(
+      `Budget: up to ${requests} requests (${opts.model}, effort ${opts.effort}), ` +
+        `up to ${searches} web searches (~$${cost}) and ${fetches} fetches, plus tokens.`,
+    );
+  }
   log(
     `Verification gets whatever is left of the ${opts.budgetMinutes}-minute budget after discovery; ` +
       'deals it does not reach go first next run.',
   );
   const pruned = buildFile(file, { deals: kept, benefits: file.benefits, cards: file.cards }, new Date());
   log(`The pruned file is valid (${pruned.deals.length} deals).`);
-  if (!process.env.ANTHROPIC_API_KEY) log('Note: ANTHROPIC_API_KEY is not set; a real run needs it.');
+  if (opts.engine === 'api' && !process.env.ANTHROPIC_API_KEY) {
+    log('Note: ANTHROPIC_API_KEY is not set; a real API run needs it.');
+  }
   return 0;
 }
 
@@ -393,7 +405,28 @@ async function main(): Promise<number> {
   if (opts.dryRun) return dryRun({ opts, file, dropped, kept, ended, toVerify, fresh, angles, watchlist, today });
 
   const needsApi = toVerify.length > 0 || angles.length > 0 || !opts.skipBenefits;
-  if (needsApi && !process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
+  if (needsApi && opts.engine === 'claude-code') {
+    const plan = checkClaudeCodePlan();
+    if (!plan.ok) {
+      const fix = {
+        'not-installed':
+          "Claude Code isn't installed (or isn't on PATH). Install it in PowerShell with " +
+          '"irm https://claude.ai/install.ps1 | iex", then run "claude" once and sign in with your Claude plan.',
+        'signed-out': 'Claude Code is not signed in. Run "claude" (or "claude auth login") and sign in with your Claude plan.',
+        'api-billing':
+          `Claude Code is set to bill something other than your Claude plan (${plan.detail}). Run "claude auth ` +
+          'login" and pick your Claude subscription, and remove any API key, apiKeyHelper or cloud-provider ' +
+          'setting from ~/.claude/settings.json. Nothing was searched.',
+        'unknown-login':
+          `Couldn't tell how Claude Code is signed in ("claude auth status" said: ${plan.detail}). Update Claude ` +
+          'Code and try again. Nothing was searched, to make sure no API key gets billed.',
+      }[plan.problem];
+      console.error(fix);
+      return 1;
+    }
+    log(`Claude Code is signed in (${plan.method}).`);
+  }
+  if (needsApi && opts.engine === 'api' && !process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
     console.error(
       'ANTHROPIC_API_KEY is not set. Export a Claude API key (for the workflow, add it as a repository ' +
         'secret), or pass --dry-run to preview without API calls.',
@@ -401,7 +434,8 @@ async function main(): Promise<number> {
     return 1;
   }
 
-  log(`Deal update for ${today} with ${opts.model} (effort ${opts.effort}).`);
+  const engineLine = opts.engine === 'claude-code' ? 'Claude Code on this PC (your Claude plan)' : 'the Claude API';
+  log(`Deal update for ${today} via ${engineLine}, model ${opts.model}${opts.engine === 'api' ? ` (effort ${opts.effort})` : ''}.`);
   log(`${file.deals.length} deals loaded, ${ended.length} ended.`);
   const softDeadline = startedAt + opts.budgetMinutes * 60_000;
   const discoveryCutoff = startedAt + discoveryMinutes(opts.budgetMinutes) * 60_000;
@@ -410,7 +444,7 @@ async function main(): Promise<number> {
     succeeded: 0,
     failures: [],
     deferred: [],
-    researcher: createResearcher({
+    researcher: (opts.engine === 'claude-code' ? createClaudeCodeResearcher : createResearcher)({
       model: opts.model,
       effort: opts.effort,
       softDeadline,
@@ -481,6 +515,8 @@ async function main(): Promise<number> {
   const summary: RunSummary = {
     ranAt: new Date().toISOString(),
     today,
+    engine: opts.engine,
+    ...(ctx.researcher.notice ? { notice: ctx.researcher.notice } : {}),
     model: opts.model,
     effort: opts.effort,
     durationMinutes: Math.round((Date.now() - startedAt) / 6_000) / 10,

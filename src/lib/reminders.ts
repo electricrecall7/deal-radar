@@ -231,8 +231,8 @@ export function planReminders(input: PlanInput): Reminder[] {
         kind: 'refresh',
         day: monday,
         fireAt: atTime(monday, REFRESH_TIME),
-        title: 'This week’s deals are in',
-        body: 'Tap to load the new list and update your reminders.',
+        title: 'Time for your weekly deal search',
+        body: 'Run “Search deals” on your PC, then open Deal Radar to load the new list.',
       });
     }
   }

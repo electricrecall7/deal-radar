@@ -301,8 +301,8 @@ export default function AlertsScreen() {
         />
         <Divider />
         <ToggleRow
-          label="Monday “new deals are in” nudge"
-          detail="10 AM, after the Monday deal check. New promo codes land on Thursdays."
+          label="Monday reminder to run the deal search"
+          detail="10 AM. New deals and codes show up after you run “Search deals” on your PC and upload them."
           value={prefs.refreshNudge}
           onValueChange={(v) => setPref('refreshNudge', v)}
         />
