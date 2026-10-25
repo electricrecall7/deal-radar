@@ -24,7 +24,16 @@ import { formatDay, formatTime, relativeDay } from '@/lib/format';
 import { CATEGORY_META } from '@/lib/meta';
 import { notifyNow, type PermissionState } from '@/lib/notifications';
 import { isOver } from '@/lib/occurrences';
-import { DEFAULT_DEALS_URL, isRestaurantMuted, restaurantKey, type Override, type Prefs } from '@/lib/prefs';
+import {
+  dealMentions,
+  DEFAULT_DEALS_URL,
+  isDealHidden,
+  isRestaurantMuted,
+  normalizeText,
+  restaurantKey,
+  type Override,
+  type Prefs,
+} from '@/lib/prefs';
 import { CATEGORIES, type Category, type Deal, type Resource } from '@/lib/schema';
 import { useAppState } from '@/state/app-state';
 
@@ -121,6 +130,7 @@ export default function AlertsScreen() {
     setDealOverride,
     toggleRestaurantMuted,
     setRestaurantsMuted,
+    setWordMuted,
     toggleHidden,
     refresh,
     requestNotifications,
@@ -128,6 +138,7 @@ export default function AlertsScreen() {
 
   const [testNote, setTestNote] = useState<string | null>(null);
   const [query, setQuery] = useState('');
+  const [wordDraft, setWordDraft] = useState('');
   const [urlDraft, setUrlDraft] = useState<string | null>(null);
   const [urlError, setUrlError] = useState<string | null>(null);
   function setPref<K extends keyof Prefs>(key: K, value: Prefs[K]) {
@@ -141,9 +152,26 @@ export default function AlertsScreen() {
 
   const categoryCounts = useMemo(() => {
     const counts = Object.fromEntries(CATEGORIES.map((c) => [c, 0])) as Record<Category, number>;
-    for (const d of liveDeals) if (!isRestaurantMuted(prefs, d.restaurant)) counts[d.category]++;
+    for (const d of liveDeals) if (!isDealHidden(d, prefs)) counts[d.category]++;
     return counts;
   }, [liveDeals, prefs]);
+
+  const draftWord = normalizeText(wordDraft);
+  const draftAlreadyMuted = prefs.mutedWords.includes(draftWord);
+  const draftCount = useMemo(
+    () => (draftWord ? liveDeals.filter((d) => dealMentions(d, draftWord)).length : 0),
+    [liveDeals, draftWord],
+  );
+  const mutedWords = useMemo(
+    () =>
+      prefs.mutedWords.map((word) => ({ word, count: liveDeals.filter((d) => dealMentions(d, word)).length })),
+    [liveDeals, prefs.mutedWords],
+  );
+  const muteDraftWord = () => {
+    if (!draftWord || draftAlreadyMuted) return;
+    setWordMuted(draftWord, true);
+    setWordDraft('');
+  };
 
   const restaurants = useMemo(() => {
     const byKey = new Map<string, { key: string; name: string; count: number }>();
@@ -343,6 +371,53 @@ export default function AlertsScreen() {
           );
         })}
       </Card>
+
+      <SectionHeader
+        title="Muted words"
+        detail="Hide every deal whose title mentions a word, like “kids”, without muting the restaurant."
+      />
+      <View style={styles.inlineRow}>
+        <TextInput
+          value={wordDraft}
+          onChangeText={setWordDraft}
+          onSubmitEditing={muteDraftWord}
+          placeholder="Word or phrase, like kids"
+          placeholderTextColor={theme.textSecondary}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="done"
+          accessibilityLabel="Word to mute"
+          style={[inputStyle, styles.fill]}
+        />
+        <Button small label="Mute" disabled={!draftWord || draftAlreadyMuted} onPress={muteDraftWord} />
+      </View>
+      {draftWord ? (
+        <ThemedText type="small" themeColor="textSecondary">
+          {draftAlreadyMuted
+            ? `“${draftWord}” is already muted.`
+            : `${draftCount === 1 ? '1 current deal mentions' : `${draftCount} current deals mention`} “${draftWord}”.`}
+        </ThemedText>
+      ) : null}
+      {mutedWords.length ? (
+        <Card>
+          {mutedWords.map(({ word, count }, i) => (
+            <Fragment key={word}>
+              {i > 0 ? <Divider /> : null}
+              <View style={styles.inlineRow}>
+                <View style={styles.fill}>
+                  <ThemedText type="smallBold" numberOfLines={1}>
+                    🔇 “{word}”
+                  </ThemedText>
+                  <ThemedText type="small" themeColor="textSecondary">
+                    {count ? `${plural(count, 'deal')} hidden` : 'No current deals mention it'}
+                  </ThemedText>
+                </View>
+                <Button small label="Unmute" onPress={() => setWordMuted(word, false)} />
+              </View>
+            </Fragment>
+          ))}
+        </Card>
+      ) : null}
 
       <SectionHeader
         title="Muted restaurants"

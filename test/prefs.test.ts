@@ -2,9 +2,12 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import {
+  dealMentions,
   DEFAULT_PREFS,
   isDealHidden,
   isRestaurantMuted,
+  mutedWordFor,
+  normalizeText,
   restaurantKey,
   wantsBenefit,
   wantsDeal,
@@ -103,6 +106,38 @@ describe('isDealHidden', () => {
     assert.equal(isDealHidden(deal({ id: 'x' }), p), true);
     assert.equal(isDealHidden(deal({ restaurant: "Wendy's" }), p), true);
     assert.equal(isDealHidden(deal(), p), false);
+  });
+});
+
+describe('muted words', () => {
+  it('match the title or tags at the start of a word, ignoring case and curly apostrophes', () => {
+    assert.equal(dealMentions(deal({ title: 'Kids’ meals $1.99 on Tuesdays' }), 'kids'), true);
+    assert.equal(dealMentions(deal({ title: 'Kids eat free' }), 'kid'), true);
+    assert.equal(dealMentions(deal({ title: 'Free skids' }), 'kid'), false);
+    assert.equal(dealMentions(deal({ title: 'BOGO pizza', tags: ['kids-eat-free'] }), 'kids eat free'), true);
+  });
+
+  it('leave the details and restaurant name out', () => {
+    const d = deal({ restaurant: 'Kids Pizza Co', title: 'BOGO pizza', details: 'Not valid on kids’ meals.' });
+    assert.equal(dealMentions(d, 'kids'), false);
+  });
+
+  it('hide matching deals everywhere, even ones set to Always', () => {
+    const p = prefs({ mutedWords: [normalizeText(' Kids ')], dealOverrides: { 'tb-tue': 'on' } });
+    const kids = deal({ title: 'Kids eat free Tuesdays' });
+    assert.equal(mutedWordFor(kids, p), 'kids');
+    assert.equal(isDealHidden(kids, p), true);
+    assert.equal(wantsDeal(kids, p), false);
+    assert.equal(isDealHidden(deal(), p), false);
+  });
+
+  it('ignore a blank word instead of hiding everything', () => {
+    assert.equal(isDealHidden(deal(), prefs({ mutedWords: [''] })), false);
+  });
+
+  it('survive a round trip through withDefaults', () => {
+    assert.deepEqual(withDefaults({ mutedWords: ['kids'] }).mutedWords, ['kids']);
+    assert.deepEqual(withDefaults(null).mutedWords, []);
   });
 });
 

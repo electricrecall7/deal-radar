@@ -22,7 +22,7 @@ import {
 import { CARD_META, CATEGORY_META, CHANNEL_LABEL } from '@/lib/meta';
 import type { PermissionState } from '@/lib/notifications';
 import { dealKind, isOver, nextOccurrence } from '@/lib/occurrences';
-import { dealNotifies, isRestaurantMuted, wantsDeal, type Override, type Prefs } from '@/lib/prefs';
+import { dealNotifies, isRestaurantMuted, mutedWordFor, wantsDeal, type Override, type Prefs } from '@/lib/prefs';
 import { DEFAULT_HORIZON_DAYS, planReminders } from '@/lib/reminders';
 import type { Deal } from '@/lib/schema';
 import { useAppState } from '@/state/app-state';
@@ -75,6 +75,7 @@ function DealDetail({ deal }: { deal: Deal }) {
     permission,
     setDealOverride,
     toggleRestaurantMuted,
+    setWordMuted,
     toggleHidden,
     deleteCustomDeal,
     requestNotifications,
@@ -84,6 +85,7 @@ function DealDetail({ deal }: { deal: Deal }) {
   const hidden = prefs.hiddenDeals.includes(deal.id);
   const override = prefs.dealOverrides[deal.id];
   const muted = isRestaurantMuted(prefs, deal.restaurant);
+  const mutedWord = mutedWordFor(deal, prefs);
   const kind = dealKind(deal);
   const over = isOver(deal, today);
   const next = over || kind === 'ongoing' ? undefined : nextOccurrence(deal, today);
@@ -139,6 +141,14 @@ function DealDetail({ deal }: { deal: Deal }) {
             Its deals are hidden everywhere and never send reminders.
           </ThemedText>
           <Button label={`Unmute ${deal.restaurant}`} small onPress={() => toggleRestaurantMuted(deal.restaurant)} />
+        </Card>
+      ) : mutedWord ? (
+        <Card style={{ backgroundColor: theme.backgroundSelected }}>
+          <ThemedText type="smallBold">🔇 Hidden: it mentions “{mutedWord}”</ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            Deals that mention a muted word are hidden everywhere and never send reminders.
+          </ThemedText>
+          <Button label={`Unmute “${mutedWord}”`} small onPress={() => setWordMuted(mutedWord, false)} />
         </Card>
       ) : hidden ? (
         <Card style={{ backgroundColor: theme.backgroundSelected }}>
@@ -216,10 +226,12 @@ function DealDetail({ deal }: { deal: Deal }) {
       ) : null}
 
       <SectionHeader title="Notifications" />
-      {muted ? (
+      {muted || mutedWord ? (
         <Card>
           <ThemedText type="small" themeColor="textSecondary">
-            Muted restaurants never send reminders. Unmute {deal.restaurant} to choose reminders for this deal.
+            {muted
+              ? `Muted restaurants never send reminders. Unmute ${deal.restaurant} to choose reminders for this deal.`
+              : `Deals that mention “${mutedWord}” never send reminders. Unmute the word to choose reminders for this deal.`}
           </ThemedText>
         </Card>
       ) : (
@@ -395,6 +407,8 @@ function reminderWhen(at: Date): string {
 function defaultOffReason(deal: Deal, prefs: Prefs): string | null {
   if (prefs.hiddenDeals.includes(deal.id)) return 'it’s hidden';
   if (isRestaurantMuted(prefs, deal.restaurant)) return `${deal.restaurant} is muted`;
+  const word = mutedWordFor(deal, prefs);
+  if (word) return `it mentions the muted word “${word}”`;
   if (!prefs.categories[deal.category]) return `the ${CATEGORY_META[deal.category].label} switch is off`;
   if (!prefs.includeUnconfirmed && deal.status === 'unconfirmed') return 'unconfirmed deals are switched off';
   if (dealKind(deal) === 'ongoing') return 'always-on perks don’t send reminders';
@@ -408,6 +422,8 @@ function noRemindersReason(deal: Deal, prefs: Prefs, today: YMD): string {
   if (!prefs.notificationsEnabled) return 'Notifications are turned off in Alerts.';
   if (prefs.hiddenDeals.includes(deal.id)) return 'Hidden deals never send reminders.';
   if (isRestaurantMuted(prefs, deal.restaurant)) return `${deal.restaurant} is muted, so it never sends reminders.`;
+  const word = mutedWordFor(deal, prefs);
+  if (word) return `It mentions the muted word “${word}”, so it never sends reminders.`;
   if (!wantsDeal(deal, prefs)) {
     if (prefs.dealOverrides[deal.id] === 'off') return 'This deal is set to Never.';
     const why = defaultOffReason(deal, prefs);

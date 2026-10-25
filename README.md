@@ -15,7 +15,7 @@ for new deals and promo codes, and uploads the new list once you approve it.
 | **Calendar** | A month grid with colored dots per deal category and 💳 on days card credits reset. Tap a day to see its deals. |
 | **Weekly** | Standing weekly specials (Taco Tuesday and so on), starting with today. |
 | **Cards** | Your five cards' food earn rates, monthly, quarterly and yearly credits with a "used" switch, and card-linked offers. **Add an offer** saves a targeted offer from your Amex, Capital One or Citi app so you get expiry reminders. |
-| **Alerts** | Reminder timing, category switches, muted restaurants (with Unmute), your per-deal choices, the data source, and a list of every reminder queued on the phone. |
+| **Alerts** | Reminder timing, category switches, muted words (hide every deal whose title mentions "kids", say) and muted restaurants, each with Unmute, your per-deal choices, the data source, and a list of every reminder queued on the phone. |
 
 Each deal page has **Default / Always / Never** for that deal's notifications, a copy button for promo codes,
 the source link, a **Hide** button, and **Mute** for its restaurant. Muting hides every deal from that place

@@ -29,7 +29,9 @@ export interface Prefs {
   categories: Record<Category, boolean>;
   /** restaurantKey() values whose deals are hidden everywhere and never notify. */
   mutedRestaurants: string[];
-  /** Per-deal choice that beats the restaurant and category switches. */
+  /** normalizeText() words or phrases; a deal whose title or tags mention one is hidden like a muted restaurant's. */
+  mutedWords: string[];
+  /** Per-deal choice that beats the category switches (but not muting or hiding). */
   dealOverrides: Record<string, Override>;
   mutedBenefits: string[];
   hiddenDeals: string[];
@@ -48,6 +50,7 @@ export const DEFAULT_PREFS: Prefs = {
   includeUnconfirmed: true,
   categories: { freebie: true, app: true, deal: true, card: true, delivery: true },
   mutedRestaurants: [],
+  mutedWords: [],
   dealOverrides: {},
   mutedBenefits: [],
   hiddenDeals: [],
@@ -64,6 +67,7 @@ export function withDefaults(stored: Partial<Prefs> | null | undefined): Prefs {
     categories: { ...DEFAULT_PREFS.categories, ...stored?.categories },
     dealOverrides: { ...stored?.dealOverrides },
     mutedRestaurants: [...(stored?.mutedRestaurants ?? [])],
+    mutedWords: [...(stored?.mutedWords ?? [])],
     mutedBenefits: [...(stored?.mutedBenefits ?? [])],
     hiddenDeals: [...(stored?.hiddenDeals ?? [])],
   };
@@ -77,14 +81,42 @@ export function isRestaurantMuted(prefs: Prefs, restaurant: string): boolean {
   return prefs.mutedRestaurants.includes(restaurantKey(restaurant));
 }
 
-/** Hidden by hand, or from a muted restaurant: left out of every list and never notifies. */
+/** "Kids’  Eat-Free" -> "kids' eat free": how muted words and the text they're found in are compared. */
+export function normalizeText(s: string): string {
+  return s.toLowerCase().replace(/[’‘]/g, "'").replace(/[-_\s]+/g, ' ').trim();
+}
+
+/**
+ * Whether a deal's title or tags mention a muted word (already normalized), at the start of a word:
+ * "kid" matches "Kids' meal" but not "skid". Details are left out because they often say what a deal
+ * excludes ("not valid on kids' meals").
+ */
+export function dealMentions(deal: Deal, word: string): boolean {
+  if (!word) return false;
+  const text = normalizeText([deal.title, ...(deal.tags ?? [])].join(' | '));
+  for (let i = text.indexOf(word); i !== -1; i = text.indexOf(word, i + 1)) {
+    if (i === 0 || !/[a-z0-9]/.test(text[i - 1])) return true;
+  }
+  return false;
+}
+
+/** The first muted word this deal mentions, if any. */
+export function mutedWordFor(deal: Deal, prefs: Prefs): string | undefined {
+  return prefs.mutedWords.find((w) => dealMentions(deal, w));
+}
+
+/** Hidden by hand, from a muted restaurant, or mentioning a muted word: left out of every list and never notifies. */
 export function isDealHidden(deal: Deal, prefs: Prefs): boolean {
-  return prefs.hiddenDeals.includes(deal.id) || isRestaurantMuted(prefs, deal.restaurant);
+  return (
+    prefs.hiddenDeals.includes(deal.id) ||
+    isRestaurantMuted(prefs, deal.restaurant) ||
+    mutedWordFor(deal, prefs) !== undefined
+  );
 }
 
 /**
  * Should this deal send notifications? Most specific setting wins:
- * hidden or muted restaurant > per-deal switch > category / unconfirmed filters.
+ * hidden or muted (restaurant or word) > per-deal switch > category / unconfirmed filters.
  */
 export function wantsDeal(deal: Deal, prefs: Prefs): boolean {
   if (isDealHidden(deal, prefs)) return false;

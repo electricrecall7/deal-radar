@@ -14,7 +14,7 @@ import { AppState } from 'react-native';
 import { periodBounds, type UsedCredits } from '@/lib/benefits';
 import { todayYMD, type YMD } from '@/lib/dates';
 import { getPermission, requestPermission, type PermissionState } from '@/lib/notifications';
-import { DEFAULT_PREFS, restaurantKey, type Override, type Prefs } from '@/lib/prefs';
+import { DEFAULT_PREFS, normalizeText, restaurantKey, type Override, type Prefs } from '@/lib/prefs';
 import type { Benefit, Deal, DealsFile } from '@/lib/schema';
 import { saveJSON } from '@/lib/storage';
 import { onlyHeldCards } from '@/lib/wallet';
@@ -54,6 +54,8 @@ export interface AppStateValue {
   setDealOverride: (id: string, value: Override | null) => void;
   toggleRestaurantMuted: (restaurant: string) => void;
   setRestaurantsMuted: (restaurants: string[], muted: boolean) => void;
+  /** Mute or unmute a word or phrase ("kids"); blank words are ignored. */
+  setWordMuted: (word: string, muted: boolean) => void;
   toggleHidden: (id: string) => void;
   toggleBenefitMuted: (id: string) => void;
   setBenefitUsed: (benefit: Benefit, used: boolean) => void;
@@ -232,6 +234,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         const keys = new Set(restaurants.map(restaurantKey));
         const rest = p.mutedRestaurants.filter((k) => !keys.has(k));
         return { ...p, mutedRestaurants: muted ? [...rest, ...keys] : rest };
+      }),
+    setWordMuted: (word, muted) =>
+      setPrefs((p) => {
+        const w = normalizeText(word);
+        if (!w) return p;
+        const rest = p.mutedWords.filter((x) => x !== w);
+        return { ...p, mutedWords: muted ? [...rest, w] : rest };
       }),
     toggleHidden: (id) =>
       setPrefs((p) => ({
