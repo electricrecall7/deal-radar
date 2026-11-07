@@ -169,6 +169,22 @@ plan's default model.
 
 The Alerts tab has a **Monday reminder to run the deal search**, so you don't forget.
 
+### Run it yourself with your API credits
+
+**Search deals.cmd** can bill your Claude API key instead of your plan. After you pick what to search,
+it asks **Pay for the search with:** choose **2) Your Claude API credits**. Then paste a key from
+<https://platform.claude.com> (**API Keys**). The key isn't shown or saved: it lives only in that window
+until the search ends. If `ANTHROPIC_API_KEY` is already set, the script uses that key without asking.
+Everything else is the same: the checks, the summary, and the upload question.
+
+An API run takes about 40 minutes. With Opus, a deal check costs about $15–17 and a promo-code run about
+$5–8. To spend less, set `DEAL_MODEL=claude-sonnet-5-5` and `DEAL_EFFORT=medium` in the window before you
+run `npm run search`. Don't set `ANTHROPIC_API_KEY` as a permanent Windows variable: Claude Code would
+then bill that key instead of your plan.
+
+This works the same from VS Code or Cline. Run `npm run search` in a VS Code terminal and answer the
+questions there. Don't paste the key into an AI chat.
+
 ### On GitHub with an API key (optional)
 
 `.github/workflows/weekly-deals.yml` runs the same search on GitHub, billed to an API key. It no longer runs on

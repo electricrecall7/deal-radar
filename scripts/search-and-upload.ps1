@@ -1,5 +1,6 @@
-# Deal Radar: search for deals with your Claude plan (through Claude Code), show what changed, and
-# upload the new list to the app only when you say so. Double-click "Search deals.cmd" to run it, or:
+# Deal Radar: search for deals with your Claude plan (through Claude Code) or your Claude API credits,
+# show what changed, and upload the new list to the app only when you say so.
+# Double-click "Search deals.cmd" to run it, or:
 #   powershell -ExecutionPolicy Bypass -File scripts\search-and-upload.ps1
 # Kept to plain ASCII: Windows PowerShell 5.1 misreads other characters in scripts saved without a BOM.
 
@@ -40,8 +41,10 @@ if ($nodeMajor -lt 22) {
   Stop-With "Deal Radar needs Node.js 22 or newer (you have $(node --version)). Install the LTS from https://nodejs.org."
 }
 
-# The native Claude Code installer puts claude.exe in %USERPROFILE%\.local\bin, which often isn't on PATH.
-if (-not (Get-Command 'claude' -ErrorAction SilentlyContinue)) {
+# Only plan runs need Claude Code. The native installer puts claude.exe in %USERPROFILE%\.local\bin,
+# which often isn't on PATH.
+function Find-ClaudeCode {
+  if (Get-Command 'claude' -ErrorAction SilentlyContinue) { return }
   $bin = Join-Path $env:USERPROFILE '.local\bin'
   if (Test-Path (Join-Path $bin 'claude.exe')) {
     $env:Path = "$bin;$env:Path"
@@ -104,6 +107,40 @@ switch ($choice) {
   default { Stop-With 'Nothing chosen; stopping.' }
 }
 
+# Plan runs go through Claude Code; API runs bill the Claude API key straight from this script.
+$engine = 'claude-code'
+if ($choice -in @('1', '2', '3')) {
+  Say ''
+  Say 'Pay for the search with:'
+  Say '  1) Your Claude plan, through Claude Code (no extra bill; your plan usage limits apply)'
+  Say '  2) Your Claude API credits (billed to an API key: about $15-17 for deals, $5-8 for promo codes with Opus)'
+  $pay = Ask 'Choose a number'
+  switch ($pay) {
+    '1' { $engine = 'claude-code' }
+    '2' { $engine = 'api' }
+    default { Stop-With 'Nothing chosen; stopping.' }
+  }
+}
+if ($choice -in @('1', '2', '3') -and $engine -eq 'claude-code') { Find-ClaudeCode }
+
+$keyFromPrompt = $false
+if ($engine -eq 'api') {
+  if ($env:ANTHROPIC_API_KEY) {
+    Say 'Using the API key already set in ANTHROPIC_API_KEY.' 'DarkGray'
+  } else {
+    # Read without echoing, and only into this window's environment, so the key is never shown, saved
+    # to disk, or left behind for Claude Code (which would then bill it instead of your plan).
+    Say 'Paste your Claude API key (from https://platform.claude.com, API Keys). It will not be shown or saved.'
+    $secure = Read-Host 'API key' -AsSecureString
+    $key = [System.Net.NetworkCredential]::new('', $secure).Password.Trim()
+    if (-not $key) { Stop-With 'No API key entered; stopping.' }
+    $env:ANTHROPIC_API_KEY = $key
+    Remove-Variable key, secure
+    $keyFromPrompt = $true
+  }
+  if ($env:DEAL_MODEL) { Say "Model: $env:DEAL_MODEL (from DEAL_MODEL)" 'DarkGray' }
+}
+
 if ($choice -ne '5') {
   if ($kept -and $choice -ne '4') {
     Say "Note: this search starts from your kept results. To start fresh instead, close this window and run: $Discard" 'DarkGray'
@@ -114,13 +151,18 @@ if ($choice -ne '5') {
   Copy-Item $DataFiles $backup
 
   Say ''
-  if ($choice -ne '4') {
+  if ($choice -ne '4' -and $engine -eq 'api') {
+    Say 'Searching with your Claude API credits. Leave this window open; it takes up to about 45 minutes.' 'Yellow'
+    Say 'Closing the window stops the search; you are billed only for the requests already made.' 'DarkGray'
+    Say ''
+  } elseif ($choice -ne '4') {
     Say 'Searching with your Claude plan. Leave this window open; it can take a while.' 'Yellow'
     Say "Your plan's usage limits apply: if you hit one, the search stops early and keeps what it found." 'DarkGray'
     Say ''
   }
-  npx tsx scripts/update-deals.ts --engine=claude-code @flags
+  npx tsx scripts/update-deals.ts "--engine=$engine" @flags
   $searchExit = $LASTEXITCODE
+  if ($keyFromPrompt) { Remove-Item Env:ANTHROPIC_API_KEY }
   if ($searchExit -ne 0) {
     Copy-Item (Join-Path $backup '*') 'data' -Force
     Remove-Item $backup -Recurse -Force
