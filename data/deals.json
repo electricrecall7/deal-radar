@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-11-07T23:55:53.358Z",
+  "updatedAt": "2026-11-08T00:14:15.179Z",
   "region": "San Antonio, TX",
   "deals": [
     {
@@ -4813,6 +4813,29 @@
       "checkedAt": "2026-11-07"
     },
     {
+      "id": "dunkin-100-bonus-points-on-monday-order-ahead-beverages-2026-11-07",
+      "restaurant": "Dunkin'",
+      "title": "100 bonus points on Monday order-ahead beverages",
+      "details": "Dunkin' Rewards members earn 100 bonus points on all beverages ordered ahead in the Dunkin' app on Mondays. Limit 100 bonus points per member per Monday.",
+      "category": "app",
+      "channel": "app",
+      "start": "2026-11-07",
+      "end": "2026-11-30",
+      "days": [
+        1
+      ],
+      "tags": [
+        "rewards",
+        "bonus-points"
+      ],
+      "status": "unconfirmed",
+      "sourceUrl": "https://www.qsrmagazine.com/news/dunkin-unveils-holiday-menu-with-cookie-butter-and-toasted-white-chocolate/",
+      "sourceName": "QSR Magazine (Dunkin' holiday menu release)",
+      "notes": "Participating US stores. Bonus points apply to base points only. The same release lists one-day bonus offers on 11/17 and 11/23, but I couldn't read their details.",
+      "firstSeen": "2026-11-07",
+      "checkedAt": "2026-11-07"
+    },
+    {
       "id": "hungryroot-amex-offer-10-back-on-99-2026-11-07",
       "restaurant": "Hungryroot",
       "title": "Amex Offer: $10 back on $99+",
@@ -4910,6 +4933,31 @@
       "sourceUrl": "https://www.outback.com/rewards",
       "sourceName": "Outback Steakhouse",
       "notes": "Check current terms in the app/site before going.",
+      "firstSeen": "2026-11-07",
+      "verifiedAt": "2026-11-07",
+      "checkedAt": "2026-11-07"
+    },
+    {
+      "id": "taco-bell-free-nacho-fries-w-10-app-order-via-apple-pay-2026-11-07",
+      "restaurant": "Taco Bell",
+      "title": "Free Nacho Fries w/ $10+ app order via Apple Pay",
+      "details": "Taco Bell Rewards members who pay with Apple Pay in the app on a Saturday or Sunday get a reward for free regular Nacho Fries on their next $10+ order, which must be placed within 90 days of issuance.",
+      "category": "app",
+      "channel": "app",
+      "start": "2026-11-07",
+      "end": "2026-11-22",
+      "days": [
+        0,
+        6
+      ],
+      "tags": [
+        "gameday",
+        "apple-pay"
+      ],
+      "status": "confirmed",
+      "sourceUrl": "https://www.tacobell.com/offers-and-deals",
+      "sourceName": "Taco Bell offers & deals",
+      "notes": "Must activate the offer in the app. Apple Pay checkout required. Promo runs through 11:59 PM PT on 11/22.",
       "firstSeen": "2026-11-07",
       "verifiedAt": "2026-11-07",
       "checkedAt": "2026-11-07"
